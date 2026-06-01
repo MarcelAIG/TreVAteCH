@@ -205,6 +205,7 @@ export default function App() {
         <canvas
           ref={displayCanvasRef}
           className={`w-full h-full object-cover transition-opacity duration-500 origin-center ${framesReady ? 'opacity-100' : 'opacity-0'}`}
+          style={{ filter: 'hue-rotate(55deg)' }}
         />
       </div>
 
@@ -228,8 +229,8 @@ export default function App() {
         <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative">
 
           {/* Logo positioning - Top left near navbar */}
-          <div className="absolute top-[16px] left-[8%] z-50 pointer-events-auto flex items-center">
-            <img src={logoImg} alt="Treva Tech" className="h-10 md:h-12 w-auto opacity-90 object-contain" />
+          <div className="absolute top-[20px] left-[8%] z-50 pointer-events-auto flex items-center">
+            <img src={logoImg} alt="Treva Tech" className="h-12 md:h-[54px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] object-contain transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)]" />
           </div>
 
           {/* Main Hero Background Video */}
