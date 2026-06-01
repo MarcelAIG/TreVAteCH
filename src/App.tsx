@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Volume2, VolumeX } from 'lucide-react';
 import Hls from 'hls.js';
 import logoImg from '../assets/Artboard 6 copy 4.png';
 
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact', 'Infrastructure'];
 const VIDEO_SRC = 'https://res.cloudinary.com/dn1ejg82q/video/upload/v1/green-digital-dna-helix-with-binary-code-stream-ba-2026-01-28-03-25-11-utc_ljevwg.mp4';
 const HERO_VIDEO_SRC = 'https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8';
+import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_39Ne05ef.mp3';
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
@@ -18,6 +19,8 @@ export default function App() {
   const [framesReady, setFramesReady] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const framesRef = useRef<HTMLCanvasElement[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
 
   // Parallax tracking
   useEffect(() => {
@@ -50,6 +53,56 @@ export default function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Background Audio Management
+  useEffect(() => {
+    const audio = new Audio(bgMusic);
+    audio.loop = true;
+    audioRef.current = audio;
+
+    const handleTimeUpdate = () => {
+      if (!audioRef.current) return;
+      const { currentTime, duration } = audioRef.current;
+      if (isNaN(duration)) return;
+
+      const fadeDuration = 4;
+      const remainingTime = duration - currentTime;
+
+      if (remainingTime <= fadeDuration && remainingTime > 0) {
+        audioRef.current.volume = Math.max(0, remainingTime / fadeDuration);
+      } else {
+        if (audioRef.current.volume !== 1) {
+          audioRef.current.volume = 1;
+        }
+      }
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+
+    const attemptPlay = async () => {
+      try {
+        await audio.play();
+      } catch (err) {
+        console.log("Autoplay blocked. Waiting for user interaction.");
+      }
+    };
+    attemptPlay();
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.pause();
+      audioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = isMuted;
+      if (!isMuted) {
+        audioRef.current.play().catch(() => {});
+      }
+    }
+  }, [isMuted]);
 
   // Frame capture loop
   useEffect(() => {
@@ -187,8 +240,20 @@ export default function App() {
     };
   }, [framesReady]);
 
+  const handleGlobalInteraction = () => {
+    if (audioRef.current && audioRef.current.paused && !isMuted) {
+      audioRef.current.play().catch(() => {});
+    }
+  };
+
   return (
-    <div className={`min-h-screen bg-black text-white font-[Manrope] overflow-x-hidden relative transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+    <div 
+      className={`min-h-screen bg-black text-white font-[Manrope] overflow-x-hidden relative transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+      onPointerDown={handleGlobalInteraction}
+      onKeyDown={handleGlobalInteraction}
+      onWheel={handleGlobalInteraction}
+      onTouchStart={handleGlobalInteraction}
+    >
 
       {/* Video Background Layer */}
       <div ref={videoBgRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none origin-center">
@@ -221,6 +286,15 @@ export default function App() {
           </div>
         </div>
       </nav>
+
+      {/* Audio Controls */}
+      <button 
+        onClick={() => setIsMuted(!isMuted)}
+        className="fixed top-[28px] right-[8%] z-50 p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white"
+        aria-label={isMuted ? "Unmute music" : "Mute music"}
+      >
+        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+      </button>
 
       {/* Dynamic Sections Content - Fully Native Scrolling */}
       <div className="relative z-10 w-full pointer-events-none">
