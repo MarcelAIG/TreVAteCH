@@ -37,7 +37,7 @@ export default function App() {
       const cy = window.innerHeight / 2;
       const targetX = ((e.clientX - cx) / cx) * 20;
       const targetY = ((e.clientY - cy) / cy) * 20;
-      
+
       gsap.to(videoBgRef.current, {
         x: targetX,
         y: targetY,
@@ -61,13 +61,13 @@ export default function App() {
     const captureFrame = () => {
       if (!capturing || !videoRef.current) return;
       const video = videoRef.current;
-      
+
       if (video.readyState >= 2 && video.currentTime !== lastTime) {
         lastTime = video.currentTime;
         const scale = Math.min(1, MAX_WIDTH / video.videoWidth) || 1;
         const w = (video.videoWidth * scale) || 960;
         const h = (video.videoHeight * scale) || 540;
-        
+
         const canvas = document.createElement('canvas');
         canvas.width = w;
         canvas.height = h;
@@ -92,7 +92,7 @@ export default function App() {
           }
         }
       }
-      
+
       if (capturing) {
         if ('requestVideoFrameCallback' in video) {
           (video as any).requestVideoFrameCallback(captureFrame);
@@ -105,7 +105,7 @@ export default function App() {
     const handleLoadedMetadata = () => {
       if (!videoRef.current) return;
       videoRef.current.playbackRate = 3.0; // Play faster to reduce loading time
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
       captureFrame();
     };
 
@@ -160,11 +160,11 @@ export default function App() {
       rafId = requestAnimationFrame(() => {
         const scrollY = window.scrollY;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        
+
         // Map scroll directly to frame with exactly zero delay or gap.
         const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
         const targetFrame = Math.round(progress * totalFrames);
-        
+
         const frame = framesRef.current[targetFrame];
         if (frame && displayCanvasRef.current) {
           const cvs = displayCanvasRef.current;
@@ -188,7 +188,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen bg-black text-white font-[Manrope] overflow-x-hidden relative transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-      
+
       {/* Video Background Layer */}
       <div ref={videoBgRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none origin-center">
         {!framesReady && (
@@ -222,36 +222,36 @@ export default function App() {
 
       {/* Dynamic Sections Content - Fully Native Scrolling */}
       <div className="relative z-10 w-full pointer-events-none">
-        
+
         {/* Section 0: Main Hero Component */}
         <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative">
-          
+
           {/* Logo positioning - Top left near navbar */}
           <div className="absolute top-8 left-[8%] z-50 pointer-events-auto">
             <img src="/logo.png" alt="Treva Tech" className="h-10 md:h-12 w-auto opacity-90" />
           </div>
 
           {/* Main Hero Background Video */}
-          <div 
-             ref={heroVideoRef}
-             className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none will-change-transform"
-             style={{
-               maskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)',
-               WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)'
-             }}
+          <div
+            ref={heroVideoRef}
+            className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none will-change-transform"
+            style={{
+              maskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)'
+            }}
           >
-             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />
-             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
-             <video 
-                ref={heroVideoElementRef}
-                autoPlay loop muted playsInline
-                className="w-full h-full object-cover object-center opacity-80 mix-blend-screen"
-             />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
+            <video
+              ref={heroVideoElementRef}
+              autoPlay loop muted playsInline
+              className="w-full h-full object-cover object-center opacity-80 mix-blend-screen"
+            />
           </div>
 
           <div className="pointer-events-auto max-w-2xl z-10 relative">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">01 // The Foundation</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">We Build Growth<br/>Machines for Brokers</h1>
+            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">We Build Growth<br />Machines for Brokers</h1>
             <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg">AI-powered systems that find, convert, and retain traders.</p>
           </div>
         </div>
@@ -260,7 +260,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-center items-end pr-[8%] w-full text-right">
           <div className="pointer-events-auto max-w-2xl">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">02 // The Advantage</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Trading<br/>Industry DNA</h1>
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Trading<br />Industry DNA</h1>
             <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md">Our team built and ran broker operations before building growth systems. We speak your language IBs, lot volumes, retention funnels, compliance gates.</p>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-center items-start pl-[8%] w-full">
           <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">03 // The Process</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Outcome<br/>Obsessed</h1>
+            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Outcome<br />Obsessed</h1>
             <p className="font-[Manrope] text-lg font-light text-white/80">No vanity metrics. Every system is tracked against FTDs, qualified leads, and revenue. If it does not move the needle, we kill it.</p>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-end items-end pb-[25vh] pr-[8%] w-full text-right">
           <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">04 // The Boundary</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Compliance<br/>Built In</h1>
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Compliance<br />Built In</h1>
             <p className="font-[Manrope] text-lg font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
           </div>
         </div>
@@ -287,8 +287,8 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-start items-start pt-[25vh] pl-[8%] w-full">
           <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">05 // The Engine</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br/>Systems</h1>
-             <ul className="font-[Manrope] text-lg font-light text-white/80 list-disc list-inside space-y-2">
+            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br />Systems</h1>
+            <ul className="font-[Manrope] text-lg font-light text-white/80 list-disc list-inside space-y-2">
               <li>Lead gen & automated outreach system</li>
               <li>AI voice agent</li>
               <li>AI chat agent & CRM integration</li>
@@ -302,7 +302,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-center items-end pr-[8%] w-full text-right">
           <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">06 // The Strategy</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Performance<br/>Marketing</h1>
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Performance<br />Marketing</h1>
             <ul className="font-[Manrope] text-lg font-light text-white/80 list-none space-y-2">
               <li>Meta Ads &bull;</li>
               <li>Google Search Ads &bull;</li>
@@ -316,7 +316,7 @@ export default function App() {
         <div className="min-h-screen flex flex-col justify-center items-center w-full text-center">
           <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-4xl shadow-2xl transition-all duration-500 hover:bg-black/40">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">07 // Global Scale</p>
-            <h1 className="hero-title !text-[50px] md:!text-[80px] !leading-[0.95] !tracking-tight mb-6">Traders from more than 150<br/>countries around the world<br/>have registered!</h1>
+            <h1 className="hero-title !text-[50px] md:!text-[80px] !leading-[0.95] !tracking-tight mb-6">Traders from more than 150<br />countries around the world<br />have registered!</h1>
           </div>
         </div>
 
@@ -335,9 +335,9 @@ export default function App() {
 
       {/* Scroll Indicator */}
       {framesReady && (
-         <div className="fixed bottom-8 right-8 flex flex-col items-center gap-2 text-white/60 animate-bounce z-20 pointer-events-none transition-opacity duration-500">
-            <ChevronDown size={24} strokeWidth={1.5} />
-         </div>
+        <div className="fixed bottom-8 right-8 flex flex-col items-center gap-2 text-white/60 animate-bounce z-20 pointer-events-none transition-opacity duration-500">
+          <ChevronDown size={24} strokeWidth={1.5} />
+        </div>
       )}
 
       {/* Global Loading Overlay */}
@@ -346,9 +346,9 @@ export default function App() {
           <div className="font-mono text-5xl text-white font-light tracking-widest mb-8 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
             {loadingProgress}<span className="text-xl text-white/40 ml-1">%</span>
           </div>
-          
+
           <div className="w-full h-[1px] bg-white/10 relative overflow-hidden">
-             <div className="absolute top-0 left-0 h-full bg-white transition-all duration-300 ease-out shadow-[0_0_10px_rgba(255,255,255,0.4)]" style={{ width: `${loadingProgress}%` }}></div>
+            <div className="absolute top-0 left-0 h-full bg-white transition-all duration-300 ease-out shadow-[0_0_10px_rgba(255,255,255,0.4)]" style={{ width: `${loadingProgress}%` }}></div>
           </div>
         </div>
       </div>
