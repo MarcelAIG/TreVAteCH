@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ChevronDown, Volume2, VolumeX } from 'lucide-react';
+import { ChevronDown, Volume2, VolumeX, Instagram, Facebook, Linkedin, Cpu, MapPin, Phone, Mail } from 'lucide-react';
 import Hls from 'hls.js';
 import logoImg from '../assets/Artboard 6 copy 4.png';
 
@@ -396,6 +396,107 @@ export default function App() {
           </div>
         </div>
 
+        {/* Footer Section */}
+        <div className="w-full bg-black/60 backdrop-blur-xl border-t border-white/10 pt-16 pb-8 px-[8%] relative z-20 pointer-events-auto mt-20">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
+            
+            {/* Column 1: Brand & Socials */}
+            <div className="flex flex-col group p-6 -ml-6 rounded-[2rem] hover:bg-white/[0.03] transition-all duration-500 border border-transparent hover:border-white/[0.05] cursor-default">
+              <img 
+                src={logoImg} 
+                alt="Treva Tech" 
+                className="h-14 md:h-16 w-auto mb-6 object-contain self-start opacity-100 drop-shadow-md transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-[1.02] origin-left" 
+              />
+              <p className="font-[Manrope] text-sm text-white/50 leading-relaxed mb-8 max-w-xs group-hover:text-white/70 transition-colors duration-500">
+                AI-powered growth systems designed for regulated environments. We build within the boundaries.
+              </p>
+              <div className="flex items-center gap-3 mt-auto">
+                <a href="#" className="group/social w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
+                  <Linkedin size={20} className="transition-transform duration-500" />
+                </a>
+                <a href="#" className="group/social w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
+                  <Instagram size={20} className="transition-transform duration-500" />
+                </a>
+                <a href="#" className="group/social w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
+                  <Facebook size={20} className="transition-transform duration-500" />
+                </a>
+              </div>
+            </div>
+
+            {/* Column 2: UK Office */}
+            <div className="flex flex-col">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                UK Headquarters
+              </h3>
+              <div className="flex items-start gap-4 text-white/50 mb-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.03] hover:border-teal-400/30 hover:bg-white/[0.05] transition-all duration-500 group hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-default">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-black/40 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors duration-500 border border-white/[0.05] group-hover:border-teal-400/30">
+                  <MapPin size={18} className="text-white/40 group-hover:text-teal-400 transition-colors duration-500" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="font-[Manrope] text-sm leading-relaxed group-hover:text-white/80 transition-colors duration-500">
+                    71-75 Shelton Street,<br />
+                    Covent Garden, London,<br />
+                    WC2H 9JQ, United Kingdom
+                  </p>
+                  <p className="font-[Manrope] text-xs text-white/40 mt-3 group-hover:text-white/60 transition-colors duration-500">
+                    Reg. Number: 16605222
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Oman Office */}
+            <div className="flex flex-col">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                Oman Office
+              </h3>
+              <div className="flex items-start gap-4 text-white/50 mb-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.03] hover:border-teal-400/30 hover:bg-white/[0.05] transition-all duration-500 group hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-default">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-black/40 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors duration-500 border border-white/[0.05] group-hover:border-teal-400/30">
+                  <MapPin size={18} className="text-white/40 group-hover:text-teal-400 transition-colors duration-500" />
+                </div>
+                <p className="font-[Manrope] text-sm leading-relaxed group-hover:text-white/80 transition-colors duration-500 mt-1">
+                  McDonald’s building, P floor,<br />
+                  Al Mouj St, 138,<br />
+                  Muscat, Oman
+                </p>
+              </div>
+            </div>
+
+            {/* Column 4: Contact */}
+            <div className="flex flex-col">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                Contact Us
+              </h3>
+              <a href="tel:+447457409190" className="flex items-center gap-4 text-white/50 hover:text-white transition-all duration-500 mb-4 font-[Manrope] text-sm group bg-white/[0.02] hover:bg-white/[0.05] p-4 rounded-2xl border border-white/[0.03] hover:border-teal-400/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] cursor-pointer">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-black/40 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors duration-500 border border-white/[0.05] group-hover:border-teal-400/30">
+                  <Phone size={18} className="text-white/40 group-hover:text-teal-400 transition-colors duration-500" />
+                </div>
+                <span className="font-medium tracking-wide">+44 7457 409190</span>
+              </a>
+              <a href="mailto:info@trevatech.com" className="flex items-center gap-4 text-white/50 hover:text-white transition-all duration-500 font-[Manrope] text-sm group bg-white/[0.02] hover:bg-white/[0.05] p-4 rounded-2xl border border-white/[0.03] hover:border-teal-400/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] cursor-pointer">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-black/40 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors duration-500 border border-white/[0.05] group-hover:border-teal-400/30">
+                  <Mail size={18} className="text-white/40 group-hover:text-teal-400 transition-colors duration-500" />
+                </div>
+                <span className="font-medium tracking-wide">info@trevatech.com</span>
+              </a>
+            </div>
+
+          </div>
+
+          <div className="max-w-7xl mx-auto w-full h-[1px] bg-white/10 mt-12 mb-8" />
+          
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-[Manrope] text-white/40">
+            <p>&copy; {new Date().getFullYear()} Treva Tech. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       {/* Action Buttons */}
@@ -409,23 +510,25 @@ export default function App() {
         </button>
       </div>
 
-      {/* Scroll Indicator */}
-      {framesReady && (
-        <div className="fixed bottom-8 right-8 flex flex-col items-center gap-2 text-white/60 animate-bounce z-20 pointer-events-none transition-opacity duration-500">
-          <ChevronDown size={24} strokeWidth={1.5} />
-        </div>
-      )}
-
       {/* Global Loading Overlay */}
       <div className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-1000 ${framesReady ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
+          
+          {/* Tech/Intelligence Icon Animation */}
+          <div className="relative mb-12 flex items-center justify-center">
+            <div className="absolute inset-0 bg-teal-500/20 blur-xl rounded-full animate-pulse"></div>
+            <div className="absolute inset-0 border border-teal-500/50 rounded-full animate-ping" style={{ animationDuration: '2s' }}></div>
+            <Cpu size={48} className="text-teal-400 drop-shadow-[0_0_15px_rgba(35,178,159,0.8)] relative z-10 animate-pulse" />
+          </div>
+
           <div className="font-mono text-5xl text-white font-light tracking-widest mb-8 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
             {loadingProgress}<span className="text-xl text-white/40 ml-1">%</span>
           </div>
 
           <div className="w-full h-[1px] bg-white/10 relative overflow-hidden">
-            <div className="absolute top-0 left-0 h-full bg-white transition-all duration-300 ease-out shadow-[0_0_10px_rgba(255,255,255,0.4)]" style={{ width: `${loadingProgress}%` }}></div>
+            <div className="absolute top-0 left-0 h-full bg-teal-400 transition-all duration-300 ease-out shadow-[0_0_10px_rgba(35,178,159,0.8)]" style={{ width: `${loadingProgress}%` }}></div>
           </div>
+          <p className="mt-6 text-xs font-[Manrope] text-teal-400/80 uppercase tracking-widest drop-shadow-[0_0_8px_rgba(35,178,159,0.5)]">Initializing Systems</p>
         </div>
       </div>
     </div>
