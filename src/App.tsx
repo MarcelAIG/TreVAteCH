@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ChevronDown } from 'lucide-react';
 import Hls from 'hls.js';
+import logoImg from '../assets/Artboard 6 copy 4.png';
 
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact', 'Infrastructure'];
 const VIDEO_SRC = 'https://res.cloudinary.com/dn1ejg82q/video/upload/v1/green-digital-dna-helix-with-binary-code-stream-ba-2026-01-28-03-25-11-utc_ljevwg.mp4';
@@ -227,8 +228,8 @@ export default function App() {
         <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative">
 
           {/* Logo positioning - Top left near navbar */}
-          <div className="absolute top-8 left-[8%] z-50 pointer-events-auto">
-            <img src="/logo.png" alt="Treva Tech" className="h-10 md:h-12 w-auto opacity-90" />
+          <div className="absolute top-[16px] left-[8%] z-50 pointer-events-auto flex items-center">
+            <img src={logoImg} alt="Treva Tech" className="h-10 md:h-12 w-auto opacity-90 object-contain" />
           </div>
 
           {/* Main Hero Background Video */}
