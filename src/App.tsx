@@ -3,11 +3,36 @@ import gsap from 'gsap';
 import { ChevronDown, Volume2, VolumeX, Instagram, Facebook, Linkedin, Cpu, MapPin, Phone, Mail } from 'lucide-react';
 import Hls from 'hls.js';
 import logoImg from '../assets/Artboard 6 copy 4.png';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact', 'Infrastructure'];
+
+const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact'];
+const HERO_SLIDES = [
+  {
+    subtitle: '01 // The Foundation',
+    title: 'We Build Growth<br />Machines for Brokers',
+    description: 'AI-powered systems that find, convert, and retain traders.',
+  },
+  {
+    subtitle: '02 // The Innovation',
+    title: 'Next-Gen Trading<br />Infrastructure',
+    description: 'Scalable and secure platforms built for modern brokerage demands.',
+  },
+  {
+    subtitle: '03 // The Scale',
+    title: 'Global Reach,<br />Local Expertise',
+    description: 'Expand your brokerage across borders with targeted precision.',
+  }
+];
 const VIDEO_SRC = 'https://res.cloudinary.com/dn1ejg82q/video/upload/v1/green-digital-dna-helix-with-binary-code-stream-ba-2026-01-28-03-25-11-utc_ljevwg.mp4';
 const HERO_VIDEO_SRC = 'https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8';
-import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_39Ne05ef.mp3';
+// Temporary placeholder because the .mp3 file is missing from the assets folder.
+// Place the .mp3 file in the 'assets' folder and uncomment the line below to restore audio.
+// import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_39Ne05ef.mp3';
+const bgMusic = '';
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
@@ -303,8 +328,8 @@ export default function App() {
         <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative">
 
           {/* Logo positioning - Top left near navbar */}
-          <div className="absolute top-[20px] left-[8%] z-50 pointer-events-auto flex items-center">
-            <img src={logoImg} alt="Treva Tech" className="h-12 md:h-[54px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] object-contain transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)]" />
+          <div className="absolute top-[10px] left-[8%] z-50 pointer-events-auto flex items-center">
+            <img src={logoImg} alt="Treva Tech" className="h-14 md:h-[60px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] object-contain transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)]" />
           </div>
 
           {/* Main Hero Background Video */}
@@ -325,10 +350,39 @@ export default function App() {
             />
           </div>
 
-          <div className="pointer-events-auto max-w-2xl z-10 relative">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">01 // The Foundation</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">We Build Growth<br />Machines for Brokers</h1>
-            <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg">AI-powered systems that find, convert, and retain traders.</p>
+          <div className="pointer-events-auto w-full z-10 relative">
+            <style>{`
+              .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.5); }
+              .swiper-pagination-bullet-active { background: #2dd4bf; }
+              .hero-swiper { padding-bottom: 3rem !important; }
+              .hero-swiper .swiper-pagination {
+                text-align: left !important;
+                bottom: 0 !important;
+              }
+            `}</style>
+            <Swiper
+              modules={[Pagination, Autoplay]}
+              spaceBetween={50}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              grabCursor={true}
+              loop={true}
+              className="hero-swiper max-w-4xl !mx-0"
+            >
+              {HERO_SLIDES.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <div className="max-w-2xl text-left">
+                    <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">{slide.subtitle}</p>
+                    <h1 
+                      className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg"
+                      dangerouslySetInnerHTML={{ __html: slide.title }}
+                    />
+                    <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg">{slide.description}</p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
 
@@ -405,7 +459,7 @@ export default function App() {
               <img 
                 src={logoImg} 
                 alt="Treva Tech" 
-                className="h-14 md:h-16 w-auto mb-6 object-contain self-start opacity-100 drop-shadow-md transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-[1.02] origin-left" 
+                className="h-16 md:h-20 w-auto mb-6 object-contain self-start opacity-100 drop-shadow-md transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-[1.02] origin-left" 
               />
               <p className="font-[Manrope] text-sm text-white/50 leading-relaxed mb-8 max-w-xs group-hover:text-white/70 transition-colors duration-500">
                 AI-powered growth systems designed for regulated environments. We build within the boundaries.
@@ -425,7 +479,7 @@ export default function App() {
 
             {/* Column 2: UK Office */}
             <div className="flex flex-col">
-              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-6">
                 <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
                 UK Headquarters
               </h3>
@@ -448,7 +502,7 @@ export default function App() {
 
             {/* Column 3: Oman Office */}
             <div className="flex flex-col">
-              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-6">
                 <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
                 Oman Office
               </h3>
@@ -466,7 +520,7 @@ export default function App() {
 
             {/* Column 4: Contact */}
             <div className="flex flex-col">
-              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-10">
+              <h3 className="font-mono text-teal-400 text-xs tracking-widest uppercase mb-6 flex items-center gap-2 mt-6">
                 <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
                 Contact Us
               </h3>
