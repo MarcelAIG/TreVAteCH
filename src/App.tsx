@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import Solutions from './Solutions';
 
 
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact'];
@@ -53,6 +54,7 @@ export default function App() {
   const framesRef = useRef<HTMLCanvasElement[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(false);
+  const [currentPage, setCurrentPage] = useState('Home');
 
   // Parallax tracking
   useEffect(() => {
@@ -300,30 +302,37 @@ export default function App() {
     >
 
       {/* Video Background Layer */}
-      <div ref={videoBgRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none origin-center">
-        {!framesReady && (
-          <video
-            ref={videoRef}
-            src={VIDEO_SRC}
-            muted
-            playsInline
-            crossOrigin="anonymous"
-            className="absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
+      <div className={currentPage === 'Home' ? 'block' : 'hidden'}>
+        <div ref={videoBgRef} className="fixed inset-0 w-full h-full z-0 pointer-events-none origin-center">
+          {!framesReady && (
+            <video
+              ref={videoRef}
+              src={VIDEO_SRC}
+              muted
+              playsInline
+              crossOrigin="anonymous"
+              className="absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
+            />
+          )}
+          <canvas
+            ref={displayCanvasRef}
+            className={`w-full h-full object-cover transition-opacity duration-500 origin-center ${framesReady ? 'opacity-100' : 'opacity-0'}`}
+            style={{ filter: 'hue-rotate(55deg)' }}
           />
-        )}
-        <canvas
-          ref={displayCanvasRef}
-          className={`w-full h-full object-cover transition-opacity duration-500 origin-center ${framesReady ? 'opacity-100' : 'opacity-0'}`}
-          style={{ filter: 'hue-rotate(55deg)' }}
-        />
+        </div>
       </div>
 
       {/* Nav */}
       <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
         <div className="liquid-glass flex items-center justify-center rounded px-6 py-2.5">
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 pointer-events-auto">
             {NAV_LINKS.map((link) => (
-              <a key={link} href="#" className="text-sm font-[Manrope] font-light text-white/70 hover:text-white transition-colors duration-200">
+              <a 
+                key={link} 
+                href="#" 
+                onClick={(e) => { e.preventDefault(); setCurrentPage(link); }}
+                className={`text-sm font-[Manrope] transition-colors duration-200 ${currentPage === link ? 'text-teal-400 font-medium' : 'font-light text-white/70 hover:text-white'}`}
+              >
                 {link}
               </a>
             ))}
@@ -343,8 +352,9 @@ export default function App() {
       {/* Dynamic Sections Content - Fully Native Scrolling */}
       <div className="relative z-10 w-full pointer-events-none">
 
-        {/* Section 0: Main Hero Component */}
-        <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative pt-[15vh]">
+        <div className={currentPage === 'Home' ? 'block' : 'hidden'}>
+          {/* Section 0: Main Hero Component */}
+          <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative pt-[15vh]">
 
           {/* Logo positioning - Top left near navbar */}
           <div className="absolute top-[10px] left-[8%] z-50 pointer-events-auto flex items-center">
@@ -553,6 +563,13 @@ export default function App() {
             </button>
           </div>
         </div>
+        </div>
+
+        {currentPage === 'Solutions' && (
+          <div className="pointer-events-auto w-full relative z-20">
+            <Solutions />
+          </div>
+        )}
 
         {/* Footer Section */}
         <div className="w-full bg-black/95 backdrop-blur-xl border-t border-white/10 pt-16 pb-8 px-[8%] relative z-20 pointer-events-auto mt-20">
