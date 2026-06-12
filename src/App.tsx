@@ -29,6 +29,13 @@ const HERO_SLIDES = [
 ];
 const VIDEO_SRC = 'https://res.cloudinary.com/dn1ejg82q/video/upload/v1/green-digital-dna-helix-with-binary-code-stream-ba-2026-01-28-03-25-11-utc_ljevwg.mp4';
 const HERO_VIDEO_SRC = 'https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8';
+const TESTIMONIALS = [
+  { quote: "Treva Tech completely transformed our lead generation pipeline. The AI voice agent alone doubled our conversion rates within the first month. They truly understand the brokerage space.", name: "Michael Jordan", title: "CEO, Global Markets FX", initials: "MJ" },
+  { quote: "The compliance-first approach gave us the confidence to scale across borders. Best growth partners we've worked with. Outstanding.", name: "Sarah Jenkins", title: "CMO, Prime Trading", initials: "SJ" },
+  { quote: "Our FTDs skyrocketed by 150% in quarter one. Their AI systems are lightyears ahead of traditional agencies.", name: "David Chen", title: "Director, Apex Brokers", initials: "DC" },
+  { quote: "Finally, an agency that understands the nuances of IB networks and lot volume requirements. Exceptional results.", name: "Elena Rostova", title: "Head of Growth, Vertex FX", initials: "ER" },
+  { quote: "The automated content creation saves us hundreds of hours a month while keeping engagement at all-time highs.", name: "Marcus Wright", title: "Founder, Alpha Capital", initials: "MW" }
+];
 // Temporary placeholder because the .mp3 file is missing from the assets folder.
 // Place the .mp3 file in the 'assets' folder and uncomment the line below to restore audio.
 // import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_39Ne05ef.mp3';
@@ -214,15 +221,23 @@ export default function App() {
   // Direct, continuous mapping from scroll position to video frame.
   useEffect(() => {
     const handleHeroFade = () => {
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+
       if (heroVideoRef.current) {
-        const scrollY = window.scrollY;
-        const vh = window.innerHeight;
         // Fade out between 0 and 90vh
         const opacity = Math.max(0, 1 - (scrollY / (vh * 0.9)));
         heroVideoRef.current.style.opacity = opacity.toString();
         // Move slightly to create a parallax effect as it fades
         const yOffset = scrollY * 0.3;
         heroVideoRef.current.style.transform = `translateY(${yOffset}px)`;
+      }
+
+      if (videoBgRef.current) {
+        // Keep the scrolling video completely hidden in the initial Hero section.
+        // It remains at 0 opacity until 80vh scroll, then fades in fully by 100vh.
+        const bgOpacity = Math.min(1, Math.max(0, (scrollY - vh * 0.8) / (vh * 0.2)));
+        videoBgRef.current.style.opacity = bgOpacity.toString();
       }
     };
 
@@ -232,35 +247,39 @@ export default function App() {
     if (!framesReady || framesRef.current.length === 0) return;
 
     let rafId: number;
-    const totalFrames = framesRef.current.length - 1;
+    const len = framesRef.current.length;
+    let autoPlayFrame = 0;
 
-    const handleScroll = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const renderLoop = () => {
+      // Continuously advance the frame so the video never completely stops
+      autoPlayFrame += 0.25; 
 
-        // Map scroll directly to frame with exactly zero delay or gap.
-        const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
-        const targetFrame = Math.round(progress * totalFrames);
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-        const frame = framesRef.current[targetFrame];
-        if (frame && displayCanvasRef.current) {
-          const cvs = displayCanvasRef.current;
-          const ctx = cvs.getContext('2d');
-          if (ctx) {
-            ctx.drawImage(frame, 0, 0, cvs.width, cvs.height);
-          }
+      // Map scroll directly to frame
+      const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
+      const scrollTargetFrame = progress * len;
+
+      const targetFrame = Math.floor(scrollTargetFrame + autoPlayFrame);
+      const actualFrame = ((targetFrame % len) + len) % len;
+
+      const frame = framesRef.current[actualFrame];
+      if (frame && displayCanvasRef.current) {
+        const cvs = displayCanvasRef.current;
+        const ctx = cvs.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(frame, 0, 0, cvs.width, cvs.height);
         }
-      });
+      }
+      
+      rafId = requestAnimationFrame(renderLoop);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initialize first frame
+    rafId = requestAnimationFrame(renderLoop);
 
     return () => {
       window.removeEventListener('scroll', handleHeroFade);
-      window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [framesReady]);
@@ -325,7 +344,7 @@ export default function App() {
       <div className="relative z-10 w-full pointer-events-none">
 
         {/* Section 0: Main Hero Component */}
-        <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative">
+        <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative pt-[15vh]">
 
           {/* Logo positioning - Top left near navbar */}
           <div className="absolute top-[10px] left-[8%] z-50 pointer-events-auto flex items-center">
@@ -383,42 +402,53 @@ export default function App() {
                 </SwiperSlide>
               ))}
             </Swiper>
+            
+            {/* Hero Action Buttons */}
+            <div className={`mt-10 flex items-center gap-4 transition-all duration-1000 delay-300 ${framesReady ? 'opacity-100' : 'opacity-0'}`}>
+              <button className="group relative bg-white text-black text-sm font-[Manrope] font-medium rounded-full px-8 py-4 overflow-hidden active:scale-[0.97] transition-all duration-200 shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_24px_4px_rgba(255,255,255,0.25)] hover:scale-[1.03]">
+                <span className="relative z-10">Let's talk</span>
+                <span className="absolute inset-0 bg-gradient-to-b from-white to-white/85 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </button>
+              <button className="liquid-glass group text-white text-sm font-[Manrope] font-medium rounded-full px-8 py-4 active:scale-[0.97] transition-all duration-200 hover:scale-[1.03] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_2px_rgba(255,255,255,0.07)] border border-white/10">
+                Strategic marketing
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Section 1: Center Right */}
-        <div className="min-h-screen flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto max-w-2xl">
+        <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">02 // The Advantage</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Trading<br />Industry DNA</h1>
-            <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md">Our team built and ran broker operations before building growth systems. We speak your language IBs, lot volumes, retention funnels, compliance gates.</p>
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Trading<br />Industry DNA</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/90 drop-shadow-md">Our team built and ran broker operations before building growth systems. We speak your language IBs, lot volumes, retention funnels, compliance gates.</p>
           </div>
         </div>
 
         {/* Section 2: Center Left */}
-        <div className="min-h-screen flex flex-col justify-center items-start pl-[8%] w-full">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
+        <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">03 // The Process</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Outcome<br />Obsessed</h1>
-            <p className="font-[Manrope] text-lg font-light text-white/80">No vanity metrics. Every system is tracked against FTDs, qualified leads, and revenue. If it does not move the needle, we kill it.</p>
+            <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Outcome<br />Obsessed</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against FTDs, qualified leads, and revenue. If it does not move the needle, we kill it.</p>
           </div>
         </div>
 
         {/* Section 3: Bottom Right */}
-        <div className="min-h-screen flex flex-col justify-end items-end pb-[25vh] pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
+        <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">04 // The Boundary</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Compliance<br />Built In</h1>
-            <p className="font-[Manrope] text-lg font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Compliance<br />Built In</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
           </div>
         </div>
 
         {/* Section 4: Top Left */}
-        <div className="min-h-screen flex flex-col justify-start items-start pt-[25vh] pl-[8%] w-full">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
+        <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">05 // The Engine</p>
-            <h1 className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br />Systems</h1>
-            <ul className="font-[Manrope] text-lg font-light text-white/80 list-disc list-inside space-y-2">
+            <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br />Systems</h1>
+            <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-disc list-inside space-y-2 text-left">
               <li>Lead gen & automated outreach system</li>
               <li>AI voice agent</li>
               <li>AI chat agent & CRM integration</li>
@@ -429,11 +459,11 @@ export default function App() {
         </div>
 
         {/* Section 5: Center Right */}
-        <div className="min-h-screen flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-2xl shadow-2xl transition-all duration-500 hover:bg-black/40">
+        <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">06 // The Strategy</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6">Performance<br />Marketing</h1>
-            <ul className="font-[Manrope] text-lg font-light text-white/80 list-none space-y-2">
+            <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Performance<br />Marketing</h1>
+            <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-none space-y-3">
               <li>Meta Ads &bull;</li>
               <li>Google Search Ads &bull;</li>
               <li>Google Display Ads &bull;</li>
@@ -442,16 +472,90 @@ export default function App() {
           </div>
         </div>
 
-        {/* Section 6: Center */}
-        <div className="min-h-screen flex flex-col justify-center items-center w-full text-center">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/30 border border-white/10 p-8 md:p-12 rounded-[2rem] max-w-4xl shadow-2xl transition-all duration-500 hover:bg-black/40">
+        {/* Section 6: Center -> Left */}
+        <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">07 // Global Scale</p>
-            <h1 className="hero-title !text-[50px] md:!text-[80px] !leading-[0.95] !tracking-tight mb-6">Traders from more than 150<br />countries around the world<br />have registered!</h1>
+            <h1 className="hero-title !text-left !text-[45px] md:!text-[60px] !leading-[1.1] !tracking-tight mb-6">
+              Traders from more than 150<br />
+              countries around the world<br />
+              have registered!
+            </h1>
+          </div>
+        </div>
+
+        {/* Section 7: Testimonial -> Right */}
+        <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center relative overflow-hidden">
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">08 // Client Success</p>
+            
+            <style>{`
+              .testimonial-swiper { padding-bottom: 3rem !important; }
+              .testimonial-swiper .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3); }
+              .testimonial-swiper .swiper-pagination-bullet-active { background: #2dd4bf; }
+              .testimonial-swiper .swiper-pagination { text-align: left !important; bottom: 0 !important; left: 0 !important; width: 100% !important; }
+            `}</style>
+
+            <Swiper
+              modules={[Pagination, Autoplay]}
+              spaceBetween={50}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 6000, disableOnInteraction: false }}
+              grabCursor={true}
+              loop={true}
+              className="testimonial-swiper w-full !mx-0"
+            >
+              {TESTIMONIALS.map((t, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="flex flex-col h-full text-left">
+                    <svg className="w-10 h-10 text-teal-400/50 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                    <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/90 italic leading-relaxed mb-8">"{t.quote}"</p>
+                    <div className="flex items-center gap-5 mt-auto">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-black font-bold text-xl shadow-[0_0_15px_rgba(35,178,159,0.5)]">{t.initials}</div>
+                      <div className="text-left">
+                        <p className="text-white font-medium text-lg">{t.name}</p>
+                        <p className="text-teal-400/80 text-sm tracking-wide">{t.title}</p>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+
+        {/* Section 8: CTA -> Center */}
+        <div className="py-[15vh] flex flex-col justify-center items-center w-full text-center px-[8%]">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-10 md:p-16 rounded-[2rem] w-full max-w-4xl min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center items-center relative overflow-hidden">
+            <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold">09 // Ready to scale?</p>
+            <h1 className="hero-title !text-center !text-[60px] md:!text-[85px] !leading-[0.9] !tracking-tight mb-8">Build Your Growth Engine</h1>
+            <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">Stop losing leads to competitors with slower systems. Let's build a custom AI growth architecture for your brokerage today.</p>
+            
+            <style>{`
+              @keyframes ultra-pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(45, 212, 191, 0.3); }
+                50% { transform: scale(1.05); box-shadow: 0 0 70px rgba(45, 212, 191, 0.7); }
+              }
+              .ultra-pulse-btn {
+                animation: ultra-pulse 3s ease-in-out infinite;
+              }
+            `}</style>
+            
+            <button className="ultra-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer">
+              {/* Shimmer sweep effect */}
+              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover:translate-x-[0%] transition-transform duration-1000 ease-in-out"></div>
+              
+              <span className="relative z-10 flex items-center justify-center gap-4 text-black font-[Manrope] font-extrabold text-2xl tracking-wider">
+                Let's Talk
+                <svg className="w-8 h-8 group-hover:translate-x-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </span>
+            </button>
           </div>
         </div>
 
         {/* Footer Section */}
-        <div className="w-full bg-black/60 backdrop-blur-xl border-t border-white/10 pt-16 pb-8 px-[8%] relative z-20 pointer-events-auto mt-20">
+        <div className="w-full bg-black/95 backdrop-blur-xl border-t border-white/10 pt-16 pb-8 px-[8%] relative z-20 pointer-events-auto mt-20">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-left">
             
             {/* Column 1: Brand & Socials */}
@@ -551,17 +655,6 @@ export default function App() {
           </div>
         </div>
 
-      </div>
-
-      {/* Action Buttons */}
-      <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-30 transition-all duration-1000 delay-300 ${framesReady ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <button className="group relative bg-white text-black text-sm font-[Manrope] font-medium rounded px-6 py-3 overflow-hidden active:scale-[0.97] transition-all duration-200 shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_24px_4px_rgba(255,255,255,0.25)] hover:scale-[1.03]">
-          <span className="relative z-10">Let's talk</span>
-          <span className="absolute inset-0 bg-gradient-to-b from-white to-white/85 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-        </button>
-        <button className="liquid-glass group text-white text-sm font-[Manrope] font-medium rounded px-6 py-3 active:scale-[0.97] transition-all duration-200 hover:scale-[1.03] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_2px_rgba(255,255,255,0.07)]">
-          Strategic marketing
-        </button>
       </div>
 
       {/* Global Loading Overlay */}
