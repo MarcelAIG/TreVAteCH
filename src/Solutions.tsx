@@ -1,16 +1,64 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Server, ShieldCheck, Crosshair, Users, Activity, BarChart3, MessageSquare } from 'lucide-react';
+import { ArrowRight, Server, ShieldCheck, Crosshair, Users, Activity, BarChart3, MessageSquare, CheckCircle2, Mic, Phone } from 'lucide-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import logoCircle from '../assets/Artboard 3 copy 15.png';
+
+// Hook for scroll animations
+function useIntersectionObserver(options = {}) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsIntersecting(true);
+        observer.disconnect(); // Animate only once
+      }
+    }, { threshold: 0.1, ...options });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [options]);
+
+  return [ref, isIntersecting] as const;
+}
+
+const TESTIMONIALS = [
+  { quote: "Treva Tech completely transformed our lead generation pipeline. The AI voice agent alone doubled our conversion rates within the first month. They truly understand the brokerage space.", name: "Michael Jordan", title: "CEO, Global Markets FX", initials: "MJ" },
+  { quote: "The compliance-first approach gave us the confidence to scale across borders. Best growth partners we've worked with. Outstanding.", name: "Sarah Jenkins", title: "CMO, Prime Trading", initials: "SJ" },
+  { quote: "Our FTDs skyrocketed by 150% in quarter one. Their AI systems are lightyears ahead of traditional agencies.", name: "David Chen", title: "Director, Apex Brokers", initials: "DC" },
+  { quote: "Finally, an agency that understands the nuances of IB networks and lot volume requirements. Exceptional results.", name: "Elena Rostova", title: "Head of Growth, Vertex FX", initials: "ER" },
+  { quote: "The automated content creation saves us hundreds of hours a month while keeping engagement at all-time highs.", name: "Marcus Wright", title: "Founder, Alpha Capital", initials: "MW" }
+];
 
 export default function Solutions() {
   const [isVisible, setIsVisible] = useState(false);
   
+  // Observers for different sections
+  const [refHero, isHeroVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [refBroker, isBrokerVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [refTree1, isTree1Visible] = useIntersectionObserver({ threshold: 0.1 });
+  const [refTree2, isTree2Visible] = useIntersectionObserver({ threshold: 0.1 });
+  const [refWhy, isWhyVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [refStats, isStatsVisible] = useIntersectionObserver({ threshold: 0.2 });
+  const [refTestimonials, isTestimonialsVisible] = useIntersectionObserver({ threshold: 0.1 });
+
   useEffect(() => {
     setIsVisible(true);
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen text-white font-[Manrope] relative bg-black pt-32 pb-20 w-full overflow-hidden">
+    <div className="min-h-screen text-white font-[Manrope] relative bg-black pt-20 pb-20 w-full overflow-hidden">
       
       {/* Background gradients for dark premium feel */}
       <div className="fixed inset-0 pointer-events-none opacity-40">
@@ -21,12 +69,14 @@ export default function Solutions() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* --- Hero Section --- */}
-        <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="hero-title text-center !text-[60px] md:!text-[90px] !leading-[0.9] !tracking-tight mb-20 drop-shadow-xl">Our Solutions</h1>
+        <div ref={refHero} className="mb-32">
+          <h1 className={`hero-title mt-8 text-center !text-[50px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-10 drop-shadow-xl transition-all duration-1000 ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            Our Solutions
+          </h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-32">
-            {/* Card 1 */}
-            <div className="group bg-black/60 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-[2rem] hover:border-teal-400/30 hover:bg-black/80 transition-all duration-500 shadow-2xl flex flex-col items-start relative overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 overflow-hidden py-4 px-2">
+            {/* Card 1 - Slide in from left */}
+            <div className={`group bg-black/60 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-[2rem] hover:border-teal-400/30 hover:bg-black/80 transition-all duration-1000 shadow-2xl flex flex-col items-start relative overflow-hidden ${isHeroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-[100px]'}`}>
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 blur-[80px] rounded-full group-hover:bg-teal-500/20 transition-all duration-700" />
               <p className="font-mono text-teal-400 mb-6 tracking-widest text-xs uppercase font-semibold">For Brokers & Prop Firms</p>
               <h2 className="hero-title !text-left !text-[40px] md:!text-[50px] !leading-[1] !tracking-tight mb-6">Broker<br/>Infrastructure</h2>
@@ -41,8 +91,8 @@ export default function Solutions() {
               </a>
             </div>
 
-            {/* Card 2 */}
-            <div className="group bg-black/60 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-[2rem] hover:border-teal-400/30 hover:bg-black/80 transition-all duration-500 shadow-2xl flex flex-col items-start relative overflow-hidden">
+            {/* Card 2 - Slide in from right */}
+            <div className={`group bg-black/60 backdrop-blur-xl border border-white/10 p-10 md:p-14 rounded-[2rem] hover:border-teal-400/30 hover:bg-black/80 transition-all duration-1000 delay-100 shadow-2xl flex flex-col items-start relative overflow-hidden ${isHeroVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-[100px]'}`}>
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 blur-[80px] rounded-full group-hover:bg-teal-500/20 transition-all duration-700" />
               <p className="font-mono text-teal-400 mb-6 tracking-widest text-xs uppercase font-semibold">For B2B Growth</p>
               <h2 className="hero-title !text-left !text-[40px] md:!text-[50px] !leading-[1] !tracking-tight mb-6">AI Marketing<br/>Solutions</h2>
@@ -60,189 +110,210 @@ export default function Solutions() {
         </div>
 
         {/* --- Broker Infrastructure Section --- */}
-        <div id="broker-infrastructure" className="pt-24 pb-32 border-t border-white/10">
+        <div id="broker-infrastructure" className="pt-24 pb-32 border-t border-white/10 overflow-hidden">
           <div className="mb-20 max-w-3xl">
-            <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold flex items-center gap-3">
+            <p className="font-mono text-teal-400 mb-2 tracking-widest text-sm uppercase font-semibold flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
               Broker Infrastructure
             </p>
-            <h2 className="hero-title !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-8">The Operational Backbone for Brokers & Prop Firms</h2>
+            <h2 className="hero-title !text-left !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-8">The Operational Backbone</h2>
             <p className="text-xl md:text-2xl text-white/70 font-light leading-relaxed">
               From platform setup to daily risk decisions, we run the infrastructure that keeps your trading operation accurate, compliant, and under control.
             </p>
           </div>
 
-          <div className="flex flex-col gap-24">
-            {/* Zigzag 1 */}
-            <div className="flex flex-col lg:flex-row items-center gap-16">
-              <div className="lg:w-1/2 w-full order-2 lg:order-1 relative">
-                <div className="aspect-[4/3] rounded-[2rem] bg-gradient-to-br from-black to-white/[0.02] border border-white/10 p-8 flex flex-col justify-center relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <Server size={48} className="text-teal-400 mb-8" />
-                  <ul className="space-y-4 text-white/80 font-light text-lg">
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> MT4/MT5 server setup & configuration</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Symbol, group, and account management</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Bridge & liquidity provider integration</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Ongoing technical administration & support</li>
-                  </ul>
-                </div>
+          <div ref={refBroker} className={`grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 transition-all duration-1000 transform ${isBrokerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[50px]'}`}>
+            
+            {/* Box 1: Platform Administration */}
+            <div className="bg-white/[0.02] hover:bg-white/[0.04] transition-colors border border-white/10 p-8 rounded-[2rem] flex flex-col xl:flex-row gap-8 items-center group">
+              <div className="w-full xl:w-2/5 aspect-[4/3] rounded-xl bg-gradient-to-br from-teal-900/40 to-black border border-teal-500/20 flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <Server size={56} className="text-teal-400 drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <div className="lg:w-1/2 w-full order-1 lg:order-2">
-                <h3 className="hero-title !text-[40px] mb-6">Platform<br/>Administration</h3>
-                <p className="text-lg text-white/70 font-light leading-relaxed mb-10">
-                  We manage the technical and operational backbone of your trading platform: MetaTrader setup, configuration, and ongoing administration, so your systems run accurately and reliably without internal overhead.
+              <div className="w-full xl:w-3/5">
+                <h3 className="hero-title !text-[32px] mb-4">Platform<br/>Administration</h3>
+                <p className="text-white/70 font-light leading-relaxed text-sm lg:text-base">
+                  MetaTrader setup, configuration, and ongoing administration, so your systems run accurately and reliably without internal overhead.
                 </p>
-                <button className="px-8 py-4 rounded-full border border-teal-400 text-teal-400 font-bold hover:bg-teal-400 hover:text-black transition-colors">Book a Discovery Call</button>
+                <ul className="mt-6 space-y-2 text-white/60 text-sm font-light">
+                  <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-teal-400"/> MT4/MT5 server setup</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-teal-400"/> Bridge & liquidity integration</li>
+                </ul>
               </div>
             </div>
 
-            {/* Zigzag 2 */}
-            <div className="flex flex-col lg:flex-row items-center gap-16">
-              <div className="lg:w-1/2 w-full">
-                <h3 className="hero-title !text-[40px] mb-6">Dealing Desk &<br/>Risk Management</h3>
-                <p className="text-lg text-white/70 font-light leading-relaxed mb-10">
-                  Our dealing desk team monitors exposure, classifies accounts, and manages risk in real time, giving you the operational discipline of an institutional desk without building one in-house.
-                </p>
-                <button className="px-8 py-4 rounded-full border border-teal-400 text-teal-400 font-bold hover:bg-teal-400 hover:text-black transition-colors">Book a Discovery Call</button>
+            {/* Box 2: Dealing Desk */}
+            <div className="bg-white/[0.02] hover:bg-white/[0.04] transition-colors border border-white/10 p-8 rounded-[2rem] flex flex-col xl:flex-row gap-8 items-center group">
+              <div className="w-full xl:w-2/5 aspect-[4/3] rounded-xl bg-gradient-to-bl from-teal-900/40 to-black border border-teal-500/20 flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <ShieldCheck size={56} className="text-teal-400 drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <div className="lg:w-1/2 w-full relative">
-                <div className="aspect-[4/3] rounded-[2rem] bg-gradient-to-bl from-black to-white/[0.02] border border-white/10 p-8 flex flex-col justify-center relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <ShieldCheck size={48} className="text-teal-400 mb-8" />
-                  <ul className="space-y-4 text-white/80 font-light text-lg">
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> A-Book / B-Book classification & monitoring</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Real-time exposure & risk tracking</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Dynamic leverage & hedge management</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-teal-400"/> Regular reporting, executive and internal</li>
-                  </ul>
-                </div>
+              <div className="w-full xl:w-3/5">
+                <h3 className="hero-title !text-[32px] mb-4">Dealing Desk &<br/>Risk Management</h3>
+                <p className="text-white/70 font-light leading-relaxed text-sm lg:text-base">
+                  Our dealing desk team monitors exposure, classifies accounts, and manages risk in real time, giving you institutional discipline.
+                </p>
+                <ul className="mt-6 space-y-2 text-white/60 text-sm font-light">
+                  <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-teal-400"/> Real-time risk tracking</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-teal-400"/> A-Book/B-Book classification</li>
+                </ul>
               </div>
             </div>
+
           </div>
         </div>
 
         {/* --- AI Marketing Solutions Section --- */}
-        <div id="ai-marketing-solutions" className="pt-24 pb-32 border-t border-white/10">
+        <div id="ai-marketing-solutions" className="pt-24 pb-32 border-t border-white/10 overflow-hidden">
           <div className="mb-20 max-w-3xl">
-            <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold flex items-center gap-3">
+            <p className="font-mono text-teal-400 mb-2 tracking-widest text-sm uppercase font-semibold flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-              AI Marketing Solutions
+              Marketing Services
             </p>
-            <h2 className="hero-title !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-8">Systems That Find, Engage, and Convert</h2>
-            <p className="text-xl md:text-2xl text-white/70 font-light leading-relaxed">
-              AI-powered lead generation, automation, and performance marketing, built to bring qualified conversations to your business, around the clock.
-            </p>
+            <h2 className="hero-title !text-left !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-8">Systems That Find, Engage, and Convert</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-            <div className="bg-white/[0.02] border border-white/10 p-10 rounded-[2rem]">
-              <p className="font-mono text-teal-400 mb-4 text-xs uppercase tracking-widest">Outreach & Automation</p>
-              <h3 className="hero-title !text-[32px] mb-4">AI Growth Systems</h3>
-              <p className="text-white/60 font-light">Lead generation and AI-powered communication systems that work around the clock to find and engage your audience.</p>
-            </div>
-            <div className="bg-white/[0.02] border border-white/10 p-10 rounded-[2rem]">
-              <p className="font-mono text-teal-400 mb-4 text-xs uppercase tracking-widest">Paid & Organic Visibility</p>
-              <h3 className="hero-title !text-[32px] mb-4">Performance Marketing</h3>
-              <p className="text-white/60 font-light">Targeted advertising and search optimization that put your brand in front of the right audience at the right time.</p>
-            </div>
-          </div>
-
-          {/* Tree Diagrams using CSS Grids/Flexbox */}
-          <div className="flex flex-col lg:flex-row gap-16 lg:gap-12 mt-16 pb-8">
+          <div className="flex flex-col gap-24">
             
-            {/* Tree 1 */}
-            <div className="flex-1 flex flex-col w-full">
-              <div className="bg-[#0a0a0a] border border-teal-500/30 text-teal-400 font-bold px-8 py-5 rounded-2xl text-center shadow-[0_0_25px_rgba(35,178,159,0.1)] mb-10 relative z-10 w-full text-xl tracking-wide">
-                AI Growth Systems
-              </div>
-              
-              <div className="flex flex-col relative w-full px-4 md:px-10">
-                {/* Main vertical line for Tree 1 */}
-                <div className="absolute left-[1.5rem] md:left-[3rem] top-[-2.5rem] bottom-16 w-px border-l border-dashed border-teal-500/40" />
+            {/* Tree 1: AI Growth System */}
+            <div ref={refTree1} className={`transition-all duration-1000 transform ${isTree1Visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-[50px]'}`}>
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
                 
-                {/* Node 1 */}
-                <div className="relative flex items-center mb-8 pl-12 md:pl-16">
-                  {/* Horizontal line */}
-                  <div className="absolute left-[-1rem] md:left-[0.5rem] w-12 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/40" />
-                  <div className="w-full bg-[#111] border border-white/10 px-8 py-5 rounded-2xl text-white font-medium shadow-lg hover:border-teal-400/50 transition-colors">
-                    Lead Generation System
+                {/* Vertical Line for Desktop */}
+                <div className="hidden lg:block absolute left-[324px] top-[10%] bottom-[10%] w-[2px] bg-[#0c3830] z-0" />
+
+                {/* Left Column */}
+                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative">
+                  <div className="bg-[#030303] border border-teal-500/30 shadow-[0_0_40px_rgba(35,178,159,0.1)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative">
+                    <h3 className="font-serif italic text-[36px] text-white leading-tight text-center tracking-wide">AI Growth<br/>System</h3>
                   </div>
+                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
                 </div>
 
-                {/* Node 2 */}
-                <div className="relative flex flex-col mb-4 pl-12 md:pl-16">
-                  <div className="absolute left-[-1rem] md:left-[0.5rem] w-12 md:w-[2.5rem] top-7 h-px border-t border-dashed border-teal-500/40" />
-                  <div className="w-full bg-[#111] border border-teal-500/30 px-8 py-5 rounded-2xl text-white font-medium shadow-[0_0_15px_rgba(35,178,159,0.05)] hover:border-teal-400/70 transition-colors">
-                    AI Receptionist
-                  </div>
+                {/* Right Column */}
+                <div className="flex-1 flex flex-col gap-6 z-10 mt-8 lg:mt-0">
                   
-                  {/* Nested sub-nodes container */}
-                  <div className="mt-6 flex flex-col relative pl-10 md:pl-14">
-                    {/* Nested vertical line */}
-                    <div className="absolute left-[-1rem] md:left-[-1rem] top-[-1.5rem] bottom-6 w-px border-l border-dashed border-teal-500/30" />
-                    
-                    {/* Sub Node A */}
-                    <div className="relative flex items-center mb-4 pl-8 md:pl-10">
-                      <div className="absolute left-[-1rem] md:left-[0rem] w-8 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/30" />
-                      <div className="w-full bg-[#0d0d0d] border border-white/5 px-6 py-4 rounded-xl text-white/80 text-sm hover:text-white transition-colors">
-                        Voice Agent
+                  {/* Node 1: Lead Gen */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <Users size={20} />
                       </div>
-                    </div>
-                    
-                    {/* Sub Node B */}
-                    <div className="relative flex items-center mb-4 pl-8 md:pl-10">
-                      <div className="absolute left-[-1rem] md:left-[0rem] w-8 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/30" />
-                      <div className="w-full bg-[#0d0d0d] border border-white/5 px-6 py-4 rounded-xl text-white/80 text-sm hover:text-white transition-colors">
-                        Chatbot
-                      </div>
-                    </div>
-
-                    {/* Sub Node C */}
-                    <div className="relative flex items-center mb-4 pl-8 md:pl-10">
-                      <div className="absolute left-[-1rem] md:left-[0rem] w-8 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/30" />
-                      <div className="w-full bg-[#0d0d0d] border border-white/5 px-6 py-4 rounded-xl text-white/80 text-sm hover:text-white transition-colors">
-                        WhatsApp Automation, Inbound & Outbound
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">Lead Generation System</h4>
+                        <p className="text-white/40 font-light text-sm">Automated outreach and continuous top-of-funnel filling tailored for your brokerage.</p>
                       </div>
                     </div>
                   </div>
+
+                  {/* Node 2: AI Receptionist */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <Mic size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">AI Receptionist</h4>
+                        <p className="text-white/40 font-light text-sm">Human-like conversational AI for inbound & outbound calls.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Node 3: Chatbot */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <MessageSquare size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">Chatbot</h4>
+                        <p className="text-white/40 font-light text-sm">Smart 24/7 web chat resolution and lead qualification.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Node 4: WhatsApp bot */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <Phone size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">WhatsApp bot</h4>
+                        <p className="text-white/40 font-light text-sm">Direct messaging automation and instant replies.</p>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
 
-            {/* Tree 2 */}
-            <div className="flex-1 flex flex-col w-full">
-              <div className="bg-[#0a0a0a] border border-teal-500/30 text-teal-400 font-bold px-8 py-5 rounded-2xl text-center shadow-[0_0_25px_rgba(35,178,159,0.1)] mb-10 relative z-10 w-full text-xl tracking-wide">
-                Performance Marketing
-              </div>
-              
-              <div className="flex flex-col relative w-full px-4 md:px-10">
-                {/* Main vertical line for Tree 2 */}
-                <div className="absolute left-[1.5rem] md:left-[3rem] top-[-2.5rem] bottom-10 w-px border-l border-dashed border-teal-500/40" />
+            {/* Tree 2: Performance Marketing */}
+            <div ref={refTree2} className={`transition-all duration-1000 transform delay-200 ${isTree2Visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-[50px]'}`}>
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
                 
-                {/* Node 1 */}
-                <div className="relative flex items-center mb-8 pl-12 md:pl-16">
-                  <div className="absolute left-[-1rem] md:left-[0.5rem] w-12 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/40" />
-                  <div className="w-full bg-[#111] border border-white/10 px-8 py-5 rounded-2xl text-white font-medium shadow-lg hover:border-teal-400/50 transition-colors">
-                    Meta Ads
+                {/* Vertical Line for Desktop */}
+                <div className="hidden lg:block absolute left-[324px] top-[15%] bottom-[15%] w-[2px] bg-[#0c3830] z-0" />
+
+                {/* Left Column */}
+                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative">
+                  <div className="bg-[#030303] border border-teal-500/30 shadow-[0_0_40px_rgba(35,178,159,0.1)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative">
+                    <h3 className="font-serif italic text-[32px] text-white leading-tight text-center tracking-wide">Performance<br/>Marketing</h3>
                   </div>
+                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
                 </div>
 
-                {/* Node 2 */}
-                <div className="relative flex items-center mb-8 pl-12 md:pl-16">
-                  <div className="absolute left-[-1rem] md:left-[0.5rem] w-12 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/40" />
-                  <div className="w-full bg-[#111] border border-white/10 px-8 py-5 rounded-2xl text-white font-medium shadow-lg hover:border-teal-400/50 transition-colors">
-                    Google Search & Display Ads
+                {/* Right Column */}
+                <div className="flex-1 flex flex-col gap-6 z-10 mt-8 lg:mt-0">
+                  
+                  {/* Node 1 */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <Activity size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">Meta Ads</h4>
+                        <p className="text-white/40 font-light text-sm">Hyper-targeted campaigns across Facebook and Instagram to attract retail traders.</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Node 3 */}
-                <div className="relative flex items-center mb-8 pl-12 md:pl-16">
-                  <div className="absolute left-[-1rem] md:left-[0.5rem] w-12 md:w-[2.5rem] h-px border-t border-dashed border-teal-500/40" />
-                  <div className="w-full bg-[#111] border border-white/10 px-8 py-5 rounded-2xl text-white font-medium shadow-lg hover:border-teal-400/50 transition-colors">
-                    SEO & GEO Optimization
+                  {/* Node 2 */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <BarChart3 size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">Google Search & Display Ads</h4>
+                        <p className="text-white/40 font-light text-sm">Capture high-intent traffic actively searching for brokerage services and trading platforms.</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
+                  {/* Node 3 */}
+                  <div className="relative">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                        <Crosshair size={20} />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-1">SEO & GEO Optimization</h4>
+                        <p className="text-white/40 font-light text-sm">Long-term organic visibility to dominate search engine results globally.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
 
@@ -250,13 +321,14 @@ export default function Solutions() {
         </div>
 
         {/* --- Why TrevaTech (Radial Hub) --- */}
-        <div className="pt-32 pb-32 border-t border-white/10 relative overflow-hidden flex flex-col items-center">
+        <div ref={refWhy} className={`pt-32 pb-32 border-t border-white/10 relative overflow-hidden flex flex-col items-center transition-all duration-1000 ${isWhyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <h2 className="hero-title !text-center !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-24">Why TrevaTech</h2>
           
           <div className="relative w-full max-w-4xl aspect-square md:aspect-video flex items-center justify-center mt-10">
+            
             {/* Center Logo Hub */}
-            <div className="absolute z-20 w-32 h-32 rounded-full bg-black border border-teal-500/50 shadow-[0_0_40px_rgba(35,178,159,0.3)] flex items-center justify-center animate-pulse" style={{ animationDuration: '4s' }}>
-              <div className="font-serif text-teal-400 text-3xl font-bold italic">TVT</div>
+            <div className="absolute z-20 w-32 h-32 md:w-40 md:h-40 rounded-full bg-black border border-teal-500/50 shadow-[0_0_50px_rgba(35,178,159,0.3)] flex items-center justify-center animate-pulse overflow-hidden p-6" style={{ animationDuration: '4s' }}>
+              <img src={logoCircle} alt="TrevaTech" className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
             </div>
 
             {/* Connecting SVG Lines (pseudo-animated via dashed stroke) */}
@@ -280,25 +352,25 @@ export default function Solutions() {
             {/* Radial Nodes */}
             <div className="absolute top-0 left-0 w-full h-full z-10 hidden md:block">
               {/* Top Left */}
-              <div className="absolute top-[5%] left-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl">
+              <div className="absolute top-[5%] left-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl hover:border-teal-400/50 transition-colors">
                 <Crosshair className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Specialist Teams</h4>
                 <p className="text-white/60 text-sm font-light">Every service line is run by people with hands-on experience in that exact field.</p>
               </div>
               {/* Top Right */}
-              <div className="absolute top-[5%] right-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl">
+              <div className="absolute top-[5%] right-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl hover:border-teal-400/50 transition-colors">
                 <Activity className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">End-to-End Delivery</h4>
                 <p className="text-white/60 text-sm font-light">We build, manage, and run the systems, not just advise on them.</p>
               </div>
               {/* Bottom Left */}
-              <div className="absolute bottom-[5%] left-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl">
+              <div className="absolute bottom-[5%] left-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl hover:border-teal-400/50 transition-colors">
                 <BarChart3 className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Outcome-Focused</h4>
                 <p className="text-white/60 text-sm font-light">Every system is tracked against real results: leads, conversions, revenue.</p>
               </div>
               {/* Bottom Right */}
-              <div className="absolute bottom-[5%] right-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl">
+              <div className="absolute bottom-[5%] right-[5%] w-64 bg-black/80 backdrop-blur border border-white/10 p-6 rounded-2xl shadow-xl hover:border-teal-400/50 transition-colors">
                 <ShieldCheck className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Regulated Built</h4>
                 <p className="text-white/60 text-sm font-light">Operations designed to work within real-world compliance and platform constraints.</p>
@@ -306,80 +378,94 @@ export default function Solutions() {
             </div>
 
             {/* Mobile Fallback for Radial Nodes */}
-            <div className="flex flex-col gap-6 md:hidden w-full mt-32 z-10">
+            <div className="flex flex-col gap-6 md:hidden w-full mt-40 z-10">
               <div className="w-full bg-black/80 border border-white/10 p-6 rounded-2xl">
                 <Crosshair className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Specialist Teams</h4>
-                <p className="text-white/60 text-sm">Every service line is run by people with hands-on experience in that exact field.</p>
+                <p className="text-white/60 text-sm font-light">Every service line is run by people with hands-on experience in that exact field.</p>
               </div>
               <div className="w-full bg-black/80 border border-white/10 p-6 rounded-2xl">
                 <Activity className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">End-to-End Delivery</h4>
-                <p className="text-white/60 text-sm">We build, manage, and run the systems, not just advise on them.</p>
+                <p className="text-white/60 text-sm font-light">We build, manage, and run the systems, not just advise on them.</p>
               </div>
               <div className="w-full bg-black/80 border border-white/10 p-6 rounded-2xl">
                 <BarChart3 className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Outcome-Focused</h4>
-                <p className="text-white/60 text-sm">Every system is tracked against real results: leads, conversions, revenue.</p>
+                <p className="text-white/60 text-sm font-light">Every system is tracked against real results: leads, conversions, revenue.</p>
               </div>
               <div className="w-full bg-black/80 border border-white/10 p-6 rounded-2xl">
                 <ShieldCheck className="text-teal-400 mb-3" size={24} />
                 <h4 className="font-bold text-white mb-2">Regulated Built</h4>
-                <p className="text-white/60 text-sm">Operations designed to work within real-world compliance and platform constraints.</p>
+                <p className="text-white/60 text-sm font-light">Operations designed to work within real-world compliance and platform constraints.</p>
               </div>
             </div>
 
           </div>
         </div>
 
-        {/* --- Stats Bar --- */}
-        <div className="py-16 border-t border-b border-white/10 mb-32 bg-white/[0.02] rounded-3xl grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-          <div className="flex flex-col items-center pt-8 md:pt-0">
-            <h4 className="font-mono text-[60px] text-teal-400 font-bold mb-2">3</h4>
-            <p className="text-white/60 uppercase tracking-widest text-sm font-semibold">Active Broker Partnerships</p>
-          </div>
-          <div className="flex flex-col items-center pt-8 md:pt-0">
-            <h4 className="font-mono text-[60px] text-teal-400 font-bold mb-2">6</h4>
-            <p className="text-white/60 uppercase tracking-widest text-sm font-semibold">Marketing Clients Served</p>
-          </div>
-          <div className="flex flex-col items-center pt-8 md:pt-0">
-            <h4 className="font-mono text-[60px] text-teal-400 font-bold mb-2">5+</h4>
-            <p className="text-white/60 uppercase tracking-widest text-sm font-semibold">Years in Industry</p>
+        {/* --- Simple Numbers Stats Bar --- */}
+        <div ref={refStats} className={`py-16 border-t border-b border-white/10 mb-32 bg-white/[0.02] rounded-[3rem] text-center shadow-2xl transition-all duration-1000 transform ${isStatsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10 px-8">
+            <div className={`flex flex-col items-center pt-8 md:pt-0 transition-all duration-700 delay-100 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <h4 className="font-mono text-[70px] leading-none text-teal-400 font-bold mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">3</h4>
+              <p className="text-white/80 uppercase tracking-[0.2em] text-sm font-semibold">Active Broker<br/>Partnerships</p>
+            </div>
+            <div className={`flex flex-col items-center pt-8 md:pt-0 transition-all duration-700 delay-300 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <h4 className="font-mono text-[70px] leading-none text-teal-400 font-bold mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">6</h4>
+              <p className="text-white/80 uppercase tracking-[0.2em] text-sm font-semibold">Marketing Clients<br/>Served</p>
+            </div>
+            <div className={`flex flex-col items-center pt-8 md:pt-0 transition-all duration-700 delay-500 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <h4 className="font-mono text-[70px] leading-none text-teal-400 font-bold mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">5+</h4>
+              <p className="text-white/80 uppercase tracking-[0.2em] text-sm font-semibold">Years in<br/>Industry</p>
+            </div>
           </div>
         </div>
 
         {/* --- Testimonials --- */}
-        <div className="pb-32">
+        <div ref={refTestimonials} className={`pb-32 transition-all duration-1000 ${isTestimonialsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <h2 className="hero-title !text-center !text-[50px] md:!text-[70px] !leading-[0.9] !tracking-tight mb-16">What Our Partners Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-black/60 border border-white/10 p-10 rounded-[2rem] hover:border-teal-400/30 transition-colors">
-              <MessageSquare className="text-teal-400/50 mb-6" size={32} />
-              <p className="text-white/90 text-lg md:text-xl font-light italic leading-relaxed mb-8">"Their handling of our MT5 infrastructure has been flawless. They know exactly how dealing desks operate, and their risk management rules have saved us immense capital."</p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-teal-400/20 text-teal-400 flex items-center justify-center font-bold text-lg">AL</div>
-                <div>
-                  <p className="text-white font-semibold">Alex L.</p>
-                  <p className="text-white/50 text-sm">Head of Dealing, Retail Broker</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-black/60 border border-white/10 p-10 rounded-[2rem] hover:border-teal-400/30 transition-colors">
-              <MessageSquare className="text-teal-400/50 mb-6" size={32} />
-              <p className="text-white/90 text-lg md:text-xl font-light italic leading-relaxed mb-8">"The AI receptionists completely eliminated our lead leakage over the weekends. The ROI on their marketing systems is the best we've seen in the FX space."</p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-teal-400/20 text-teal-400 flex items-center justify-center font-bold text-lg">RM</div>
-                <div>
-                  <p className="text-white font-semibold">Rachel M.</p>
-                  <p className="text-white/50 text-sm">CMO, FX Prop Firm</p>
-                </div>
-              </div>
-            </div>
+          
+          <div className="max-w-5xl mx-auto backdrop-blur-md bg-black/60 border border-white/10 p-8 md:p-14 rounded-[2rem] shadow-2xl relative overflow-hidden">
+            <style>{`
+              .testimonial-swiper-sol { padding-bottom: 3rem !important; }
+              .testimonial-swiper-sol .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3); width: 10px; height: 10px; }
+              .testimonial-swiper-sol .swiper-pagination-bullet-active { background: #2dd4bf; width: 30px; border-radius: 5px; }
+              .testimonial-swiper-sol .swiper-pagination { text-align: center !important; bottom: 0 !important; left: 0 !important; width: 100% !important; }
+            `}</style>
+
+            <Swiper
+              modules={[Pagination, Autoplay]}
+              spaceBetween={50}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 6000, disableOnInteraction: false }}
+              grabCursor={true}
+              loop={true}
+              className="testimonial-swiper-sol w-full"
+            >
+              {TESTIMONIALS.map((t, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="flex flex-col h-full text-center items-center px-4">
+                    <svg className="w-12 h-12 text-teal-400/40 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                    <p className="font-[Manrope] text-xl md:text-3xl font-light text-white/90 italic leading-relaxed mb-12 max-w-4xl">"{t.quote}"</p>
+                    <div className="flex flex-col items-center gap-4 mt-auto">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-black font-bold text-2xl shadow-[0_0_20px_rgba(35,178,159,0.4)]">{t.initials}</div>
+                      <div>
+                        <p className="text-white font-medium text-xl">{t.name}</p>
+                        <p className="text-teal-400/80 text-sm tracking-wide uppercase mt-1">{t.title}</p>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
 
         {/* --- CTA Section --- */}
         <div className="pb-20 flex flex-col justify-center items-center w-full text-center">
-          <div className="bg-black/80 border border-teal-500/30 p-12 md:p-20 rounded-[3rem] w-full max-w-5xl shadow-[0_0_50px_rgba(35,178,159,0.15)] relative overflow-hidden">
+          <div className="bg-black/80 border border-teal-500/30 p-12 md:p-20 rounded-[3rem] w-full max-w-5xl shadow-[0_0_50px_rgba(35,178,159,0.15)] relative overflow-hidden group">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-transparent via-teal-400 to-transparent opacity-50"></div>
             
             <h1 className="hero-title !text-[50px] md:!text-[80px] !leading-[0.9] !tracking-tight mb-8">Ready to Build Something That Works?</h1>
@@ -397,11 +483,11 @@ export default function Solutions() {
               }
             `}</style>
             
-            <button className="cta-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer mx-auto">
-              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover:translate-x-[0%] transition-transform duration-1000 ease-in-out"></div>
+            <button className="cta-pulse-btn group/btn relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer mx-auto">
+              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[0%] transition-transform duration-1000 ease-in-out"></div>
               <span className="relative z-10 flex items-center justify-center gap-4 text-black font-[Manrope] font-extrabold text-2xl tracking-wider">
                 Book a Call
-                <svg className="w-8 h-8 group-hover:translate-x-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <svg className="w-8 h-8 group-hover/btn:translate-x-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </span>
             </button>
           </div>
