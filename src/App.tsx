@@ -391,7 +391,7 @@ export default function App() {
               spaceBetween={50}
               slidesPerView={1}
               pagination={{ clickable: true }}
-              autoplay={{ delay: 5000, disableOnInteraction: false }}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
               grabCursor={true}
               loop={true}
               className="hero-swiper max-w-4xl !mx-0"
@@ -459,8 +459,7 @@ export default function App() {
               <li>Lead gen & automated outreach system</li>
               <li>AI voice agent</li>
               <li>AI chat agent & CRM integration</li>
-              <li>AI automated content creation</li>
-              <li>AI automated social media</li>
+              <li>WhatsApp agent</li>
             </ul>
           </div>
         </div>
