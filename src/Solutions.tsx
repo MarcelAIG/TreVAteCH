@@ -180,71 +180,75 @@ export default function Solutions() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
                 
                 {/* Vertical Line for Desktop */}
-                <div className="hidden lg:block absolute left-[324px] top-[10%] bottom-[10%] w-[2px] bg-[#0c3830] z-0" />
+                <div className="hidden lg:block absolute left-[324px] top-[10%] bottom-[10%] w-[2px] bg-gradient-to-b from-transparent via-teal-500/40 to-transparent z-0 shadow-[0_0_10px_rgba(35,178,159,0.3)]" />
 
                 {/* Left Column */}
-                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative">
-                  <div className="bg-[#030303] border border-teal-500/30 shadow-[0_0_40px_rgba(35,178,159,0.1)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative">
-                    <h3 className="font-serif italic text-[36px] text-white leading-tight text-center tracking-wide">AI Growth<br/>System</h3>
+                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative group">
+                  {/* Outer glow aura */}
+                  <div className="absolute inset-0 bg-teal-500/20 blur-[60px] opacity-40 group-hover:opacity-70 transition-opacity duration-700 rounded-full" />
+                  
+                  <div className="bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_40px_rgba(35,178,159,0.2)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative overflow-hidden group-hover:border-teal-400/40 transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                    <h3 className="font-serif italic text-[36px] text-white leading-tight text-center tracking-wide relative z-10 drop-shadow-lg">AI Growth<br/>System</h3>
                   </div>
-                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/40 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.3)]" />
                 </div>
 
                 {/* Right Column */}
                 <div className="flex-1 flex flex-col gap-6 z-10 mt-8 lg:mt-0">
                   
                   {/* Node 1: Lead Gen */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <Users size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">Lead Generation System</h4>
-                        <p className="text-white/40 font-light text-sm">Automated outreach and continuous top-of-funnel filling tailored for your brokerage.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">Lead Generation System</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Automated outreach and continuous top-of-funnel filling tailored for your brokerage.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Node 2: AI Receptionist */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <Mic size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">AI Receptionist</h4>
-                        <p className="text-white/40 font-light text-sm">Human-like conversational AI for inbound & outbound calls.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">AI Receptionist</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Human-like conversational AI for inbound & outbound calls.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Node 3: Chatbot */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <MessageSquare size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">Chatbot</h4>
-                        <p className="text-white/40 font-light text-sm">Smart 24/7 web chat resolution and lead qualification.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">Chatbot</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Smart 24/7 web chat resolution and lead qualification.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Node 4: WhatsApp bot */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <Phone size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">WhatsApp bot</h4>
-                        <p className="text-white/40 font-light text-sm">Direct messaging automation and instant replies.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">WhatsApp bot</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Direct messaging automation and instant replies.</p>
                       </div>
                     </div>
                   </div>
@@ -258,57 +262,61 @@ export default function Solutions() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
                 
                 {/* Vertical Line for Desktop */}
-                <div className="hidden lg:block absolute left-[324px] top-[15%] bottom-[15%] w-[2px] bg-[#0c3830] z-0" />
+                <div className="hidden lg:block absolute left-[324px] top-[15%] bottom-[15%] w-[2px] bg-gradient-to-b from-transparent via-teal-500/40 to-transparent z-0 shadow-[0_0_10px_rgba(35,178,159,0.3)]" />
 
                 {/* Left Column */}
-                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative">
-                  <div className="bg-[#030303] border border-teal-500/30 shadow-[0_0_40px_rgba(35,178,159,0.1)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative">
-                    <h3 className="font-serif italic text-[32px] text-white leading-tight text-center tracking-wide">Performance<br/>Marketing</h3>
+                <div className="lg:w-[300px] shrink-0 flex items-center justify-end z-10 relative group">
+                  {/* Outer glow aura */}
+                  <div className="absolute inset-0 bg-teal-500/20 blur-[60px] opacity-40 group-hover:opacity-70 transition-opacity duration-700 rounded-full" />
+                  
+                  <div className="bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_40px_rgba(35,178,159,0.2)] rounded-[2rem] w-full max-w-[280px] py-12 flex items-center justify-center relative overflow-hidden group-hover:border-teal-400/40 transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                    <h3 className="font-serif italic text-[32px] text-white leading-tight text-center tracking-wide relative z-10 drop-shadow-lg">Performance<br/>Marketing</h3>
                   </div>
-                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
+                  <div className="hidden lg:block absolute right-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/40 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.3)]" />
                 </div>
 
                 {/* Right Column */}
                 <div className="flex-1 flex flex-col gap-6 z-10 mt-8 lg:mt-0">
                   
                   {/* Node 1 */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <Activity size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">Meta Ads</h4>
-                        <p className="text-white/40 font-light text-sm">Hyper-targeted campaigns across Facebook and Instagram to attract retail traders.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">Meta Ads</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Hyper-targeted campaigns across Facebook and Instagram to attract retail traders.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Node 2 */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <BarChart3 size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">Google Search & Display Ads</h4>
-                        <p className="text-white/40 font-light text-sm">Capture high-intent traffic actively searching for brokerage services and trading platforms.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">Google Search & Display Ads</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Capture high-intent traffic actively searching for brokerage services and trading platforms.</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Node 3 */}
-                  <div className="relative">
-                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-[#0c3830] -translate-y-1/2" />
-                    <div className="bg-[#0a0a0a] border border-white/5 rounded-[2rem] p-6 flex items-center gap-6 hover:border-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-[#0a1513] flex items-center justify-center text-teal-400 shrink-0">
+                  <div className="relative group/node">
+                    <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
+                      <div className="w-12 h-12 rounded-full bg-teal-400/10 flex items-center justify-center text-teal-400 shrink-0 group-hover/node:scale-110 transition-transform duration-500">
                         <Crosshair size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">SEO & GEO Optimization</h4>
-                        <p className="text-white/40 font-light text-sm">Long-term organic visibility to dominate search engine results globally.</p>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">SEO & GEO Optimization</h4>
+                        <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Long-term organic visibility to dominate search engine results globally.</p>
                       </div>
                     </div>
                   </div>
