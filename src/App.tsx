@@ -37,10 +37,7 @@ const TESTIMONIALS = [
   { quote: "Finally, an agency that understands the nuances of IB networks and lot volume requirements. Exceptional results.", name: "Elena Rostova", title: "Head of Growth, Vertex FX", initials: "ER" },
   { quote: "The automated content creation saves us hundreds of hours a month while keeping engagement at all-time highs.", name: "Marcus Wright", title: "Founder, Alpha Capital", initials: "MW" }
 ];
-// Temporary placeholder because the .mp3 file is missing from the assets folder.
-// Place the .mp3 file in the 'assets' folder and uncomment the line below to restore audio.
-// import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_39Ne05ef.mp3';
-const bgMusic = '';
+import bgMusic from '../assets/deep-work-music-discipline-consistent-effort-mental-control-steady-work_HaYFwfbh.mp3';
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
