@@ -247,27 +247,52 @@ export default function App() {
 
     let rafId: number;
     const len = framesRef.current.length;
-    let autoPlayFrame = 0;
+    let autoPlayOffset = 0;
+    let currentContinuousFrame = 0;
+    
+    // For smooth darkness transition
+    let isScrolling = false;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    let currentBrightness = 0.4;
+    
+    const handleScrollState = () => {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    };
+    window.addEventListener('scroll', handleScrollState, { passive: true });
 
     const renderLoop = () => {
-      // Continuously advance the frame so the video never completely stops
-      autoPlayFrame += 0.25; 
+      // Continuously advance the autoplay offset (softly and slowly)
+      autoPlayOffset += 0.15; 
 
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-      // Map scroll directly to frame
+      // Map scroll to target frame. Multiply by len * 1.5 to make scroll cover more ground
       const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
-      const scrollTargetFrame = progress * len;
+      const scrollTargetFrame = progress * len * 1.5;
 
-      const targetFrame = Math.floor(scrollTargetFrame + autoPlayFrame);
-      const actualFrame = ((targetFrame % len) + len) % len;
+      const targetFrame = scrollTargetFrame + autoPlayOffset;
+      
+      // Smooth interpolation (lerp) towards target frame
+      currentContinuousFrame += (targetFrame - currentContinuousFrame) * 0.08;
 
-      const frame = framesRef.current[actualFrame];
+      const actualFrame = Math.floor(currentContinuousFrame) % len;
+      const safeFrame = (actualFrame + len) % len; // Ensure positive
+
+      // Smooth darkness transition
+      const targetBrightness = isScrolling ? 1.0 : 0.4;
+      currentBrightness += (targetBrightness - currentBrightness) * 0.05;
+
+      const frame = framesRef.current[safeFrame];
       if (frame && displayCanvasRef.current) {
         const cvs = displayCanvasRef.current;
         const ctx = cvs.getContext('2d');
         if (ctx) {
+          cvs.style.filter = `hue-rotate(55deg) brightness(${currentBrightness})`;
           ctx.drawImage(frame, 0, 0, cvs.width, cvs.height);
         }
       }
@@ -279,6 +304,8 @@ export default function App() {
 
     return () => {
       window.removeEventListener('scroll', handleHeroFade);
+      window.removeEventListener('scroll', handleScrollState);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [framesReady]);
