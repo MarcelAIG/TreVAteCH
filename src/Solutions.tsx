@@ -239,7 +239,7 @@ export default function Solutions() {
                     </div>
                   </div>
 
-                  {/* Node 4: WhatsApp agent */}
+                  {/* Node 4: WhatsApp bot */}
                   <div className="relative group/node">
                     <div className="hidden lg:block absolute left-[-24px] top-1/2 w-[24px] h-[2px] bg-teal-500/30 group-hover/node:bg-teal-400/80 transition-colors duration-500 -translate-y-1/2 shadow-[0_0_10px_rgba(35,178,159,0.2)]" />
                     <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white/[0.04] hover:border-teal-500/50 hover:shadow-[0_0_30px_rgba(35,178,159,0.15)] transition-all duration-500 hover:-translate-y-1 cursor-default">
@@ -247,7 +247,7 @@ export default function Solutions() {
                         <Phone size={20} />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">WhatsApp agent</h4>
+                        <h4 className="text-xl font-bold text-white mb-1 group-hover/node:text-teal-50 transition-colors duration-300">WhatsApp bot</h4>
                         <p className="text-white/50 font-light text-sm group-hover/node:text-white/70 transition-colors duration-300">Direct messaging automation and instant replies.</p>
                       </div>
                     </div>

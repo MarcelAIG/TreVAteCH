@@ -52,6 +52,8 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [currentPage, setCurrentPage] = useState('Home');
+  const darkOverlayRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Parallax tracking
   useEffect(() => {
@@ -189,7 +191,7 @@ export default function App() {
 
     const handleLoadedMetadata = () => {
       if (!videoRef.current) return;
-      videoRef.current.playbackRate = 3.0; // Play faster to reduce loading time
+      videoRef.current.playbackRate = 1.5; // Capture at lower speed for much smoother frames
       videoRef.current.play().catch(() => { });
       captureFrame();
     };
@@ -223,6 +225,16 @@ export default function App() {
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
 
+      if (darkOverlayRef.current) {
+        darkOverlayRef.current.style.opacity = '0'; // Lightens up when scrolling
+      }
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (darkOverlayRef.current) {
+          darkOverlayRef.current.style.opacity = '0.85'; // Very dark when idle
+        }
+      }, 150);
+
       if (heroVideoRef.current) {
         // Fade out between 0 and 90vh
         const opacity = Math.max(0, 1 - (scrollY / (vh * 0.9)));
@@ -247,52 +259,40 @@ export default function App() {
 
     let rafId: number;
     const len = framesRef.current.length;
-    let autoPlayOffset = 0;
-    let currentContinuousFrame = 0;
-    
-    // For smooth darkness transition
-    let isScrolling = false;
-    let scrollTimeout: ReturnType<typeof setTimeout>;
-    let currentBrightness = 0.4;
-    
-    const handleScrollState = () => {
-      isScrolling = true;
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-      }, 150);
-    };
-    window.addEventListener('scroll', handleScrollState, { passive: true });
+    let currentRenderFrame = 0;
 
     const renderLoop = () => {
-      // Continuously advance the autoplay offset (softly and slowly)
-      autoPlayOffset += 0.15; 
-
       const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
 
-      // Map scroll to target frame. Multiply by len * 1.5 to make scroll cover more ground
-      const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
-      const scrollTargetFrame = progress * len * 1.5;
-
-      const targetFrame = scrollTargetFrame + autoPlayOffset;
+      // Map scroll directly to the exact frame timeline (0 to len - 1)
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      const targetFrame = progress * (len - 1);
       
-      // Smooth interpolation (lerp) towards target frame
-      currentContinuousFrame += (targetFrame - currentContinuousFrame) * 0.08;
+      // Initialize currentRenderFrame on first run
+      if (currentRenderFrame === 0 && targetFrame > 0) {
+        currentRenderFrame = targetFrame;
+      }
 
-      const actualFrame = Math.floor(currentContinuousFrame) % len;
-      const safeFrame = (actualFrame + len) % len; // Ensure positive
+      // Calculate distance to target
+      const diff = targetFrame - currentRenderFrame;
 
-      // Smooth darkness transition
-      const targetBrightness = isScrolling ? 1.0 : 0.4;
-      currentBrightness += (targetBrightness - currentBrightness) * 0.05;
+      // Smooth lerp (interpolation) or snap if very close (to prevent micro-vibrations)
+      if (Math.abs(diff) < 0.05) {
+        currentRenderFrame = targetFrame;
+      } else {
+        currentRenderFrame += diff * 0.08; // slightly faster ease for responsive scroll
+      }
+
+      // Round to nearest whole frame to avoid fractional stutter
+      const actualFrame = Math.round(currentRenderFrame);
+      const safeFrame = Math.max(0, Math.min(actualFrame, len - 1)); // Strict bounds
 
       const frame = framesRef.current[safeFrame];
       if (frame && displayCanvasRef.current) {
         const cvs = displayCanvasRef.current;
         const ctx = cvs.getContext('2d');
         if (ctx) {
-          cvs.style.filter = `hue-rotate(55deg) brightness(${currentBrightness})`;
           ctx.drawImage(frame, 0, 0, cvs.width, cvs.height);
         }
       }
@@ -304,8 +304,6 @@ export default function App() {
 
     return () => {
       window.removeEventListener('scroll', handleHeroFade);
-      window.removeEventListener('scroll', handleScrollState);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [framesReady]);
@@ -343,6 +341,7 @@ export default function App() {
             className={`w-full h-full object-cover transition-opacity duration-500 origin-center ${framesReady ? 'opacity-100' : 'opacity-0'}`}
             style={{ filter: 'hue-rotate(55deg)' }}
           />
+          <div ref={darkOverlayRef} className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-1000 ease-in-out opacity-0" />
         </div>
       </div>
 
