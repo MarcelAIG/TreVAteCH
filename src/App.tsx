@@ -500,17 +500,17 @@ export default function App() {
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">02 // The Advantage</p>
-            <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Trading<br />Industry DNA</h1>
-            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/90 drop-shadow-md">Our team built and ran broker operations before building growth systems. We speak your language IBs, lot volumes, retention funnels, compliance gates.</p>
+            <h1 className="hero-title !text-right !text-[50px] md:!text-[70px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Built by Specialists,<br />Not Generalists</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/90 drop-shadow-md">Our teams have run broker operations and built growth systems from the inside. We speak both languages: lot volumes and retention funnels, lead funnels and conversion data.</p>
           </div>
         </div>
 
         {/* Section 2: Center Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">03 // The Process</p>
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">03 // THE PROCESS</p>
             <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Outcome<br />Obsessed</h1>
-            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against FTDs, qualified leads, and revenue. If it does not move the needle, we kill it.</p>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against real outcomes: qualified leads, conversions, and revenue. What does not perform gets rebuilt or removed.</p>
           </div>
         </div>
 
@@ -526,13 +526,12 @@ export default function App() {
         {/* Section 4: Top Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">05 // The Engine</p>
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">05 // THE ENGINE</p>
             <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br />Systems</h1>
-            <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-disc list-inside space-y-2 text-left">
-              <li>Lead gen & automated outreach system</li>
-              <li>AI voice agent</li>
-              <li>AI chat agent & CRM integration</li>
-              <li>WhatsApp agent</li>
+            <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-disc list-inside space-y-3 text-left">
+              <li>AI lead generation & automated outreach</li>
+              <li>AI receptionist: voice agent, chatbot & WhatsApp automation</li>
+              <li>Automated content & social media management</li>
             </ul>
           </div>
         </div>
@@ -540,13 +539,12 @@ export default function App() {
         {/* Section 5: Center Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">06 // The Strategy</p>
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">06 // THE STRATEGY</p>
             <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Performance<br />Marketing</h1>
             <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-none space-y-3">
               <li>Meta Ads &bull;</li>
-              <li>Google Search Ads &bull;</li>
-              <li>Google Display Ads &bull;</li>
-              <li>SEO & GEO Optimization &bull;</li>
+              <li>Google Search & Display Ads &bull;</li>
+              <li>SEO & GEO Optimization (AI search visibility) &bull;</li>
             </ul>
           </div>
         </div>
@@ -554,19 +552,25 @@ export default function App() {
         {/* Section 6: Center -> Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">07 // Global Scale</p>
-            <h1 className="hero-title !text-left !text-[45px] md:!text-[60px] !leading-[1.1] !tracking-tight mb-6">
-              Traders from more than 150<br />
-              countries around the world<br />
-              have registered!
-            </h1>
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">07 // THE INFRASTRUCTURE</p>
+            <h1 className="hero-title !text-left !text-[50px] md:!text-[70px] !leading-[0.85] !tracking-tight mb-6">Operations Built for<br />Regulated Brokers</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">Platform administration, dealing desk operations, and risk management for brokers and prop firms, built within regulatory and platform boundaries from day one.</p>
           </div>
         </div>
 
-        {/* Section 7: Testimonial -> Right */}
+        {/* Section 7: Center -> Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">08 // THE CONVERGENCE</p>
+            <h1 className="hero-title !text-right !text-[45px] md:!text-[65px] !leading-[0.85] !tracking-tight mb-6">From the First Conversation<br />to the Last Trade</h1>
+            <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">TrevaTech builds the systems that move businesses and brokers forward, growth on one side, infrastructure on the other.</p>
+          </div>
+        </div>
+
+        {/* Section 8: Testimonials -> Left */}
+        <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full text-left">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center relative overflow-hidden">
-            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">08 // Client Success</p>
+            <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">09 // What Our Partners Say</p>
             
             <style>{`
               .testimonial-swiper { padding-bottom: 3rem !important; }
@@ -604,12 +608,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Section 8: CTA -> Center */}
+        {/* Section 10: CTA -> Center */}
         <div className="py-[15vh] flex flex-col justify-center items-center w-full text-center px-[8%]">
           <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-10 md:p-16 rounded-[2rem] w-full max-w-4xl min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center items-center relative overflow-hidden">
-            <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold">09 // Ready to scale?</p>
-            <h1 className="hero-title !text-center !text-[60px] md:!text-[85px] !leading-[0.9] !tracking-tight mb-8">Build Your Growth Engine</h1>
-            <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">Stop losing leads to competitors with slower systems. Let's build a custom AI growth architecture for your brokerage today.</p>
+            <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold">10 // Ready to scale?</p>
+            <h1 className="hero-title !text-center !text-[55px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-8">Ready to Build Something<br />That Works?</h1>
+            <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">Whether you're scaling outreach or running a trading desk, let's talk about what TrevaTech can build for you.</p>
             
             <style>{`
               @keyframes ultra-pulse {
@@ -621,13 +625,18 @@ export default function App() {
               }
             `}</style>
             
-            <button className="ultra-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer">
+            <button 
+              onClick={() => {
+                setCurrentPage('Contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="ultra-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer"
+            >
               {/* Shimmer sweep effect */}
-              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover:translate-x-[0%] transition-transform duration-1000 ease-in-out"></div>
-              
-              <span className="relative z-10 flex items-center justify-center gap-4 text-black font-[Manrope] font-extrabold text-2xl tracking-wider">
-                Let's Talk
-                <svg className="w-8 h-8 group-hover:translate-x-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
+              <span className="relative z-10 text-black font-[Manrope] font-bold text-2xl tracking-wide flex items-center gap-4">
+                Book a Call 
+                <span className="group-hover:translate-x-2 transition-transform duration-300 text-3xl">→</span>
               </span>
             </button>
           </div>
