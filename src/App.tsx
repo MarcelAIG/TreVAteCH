@@ -8,6 +8,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Solutions from './Solutions';
+import About from './About';
 
 
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact'];
@@ -648,6 +649,12 @@ export default function App() {
         {currentPage === 'Solutions' && (
           <div className="pointer-events-auto w-full relative z-20">
             <Solutions />
+          </div>
+        )}
+
+        {currentPage === 'About' && (
+          <div className="pointer-events-auto w-full relative z-20">
+            <About setCurrentPage={setCurrentPage} />
           </div>
         )}
 
