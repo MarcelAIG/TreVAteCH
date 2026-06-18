@@ -154,7 +154,41 @@ export default function About({ setCurrentPage }: { setCurrentPage: (page: strin
         </div>
       </div>
 
-      {/* 4. OUR TEAM */}
+      {/* 4. HOW WE WORK */}
+      <div ref={refWork} className={`max-w-4xl mx-auto mb-40 transition-all duration-1000 ease-out ${isWorkVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
+        <div className="text-center mb-16 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-teal-500/10 blur-[100px] rounded-full pointer-events-none" />
+          <h2 className="hero-title !text-[40px] md:!text-[55px] mb-4 relative z-10">How We Work</h2>
+          <p className="font-[Manrope] text-xl text-white/70 relative z-10">Principles, Not Promises</p>
+        </div>
+
+        <div className="space-y-6">
+          {[
+            { num: '01', title: 'We Run What We Build', desc: 'We do not hand off systems and walk away. Our teams operate what they build day to day, so we see exactly what works and what needs to change.' },
+            { num: '02', title: 'Decisions Follow Data, Not Habit', desc: 'Every system we build is reviewed against real numbers and real outcomes. When something stops performing, we adjust it.' },
+            { num: '03', title: 'Built to Fit, Not to Template', desc: 'Every business has different constraints, whether regulatory, operational, or competitive. We build systems around those constraints, not around a one-size-fits-all package.' }
+          ].map((principle, idx) => (
+            <div 
+              key={idx} 
+              className={`bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] flex items-start gap-8 hover:bg-black/60 hover:border-teal-400/40 hover:shadow-[inset_0_0_80px_rgba(45,212,191,0.1),0_0_30px_rgba(45,212,191,0.15)] transition-all duration-700 group relative overflow-hidden`}
+              style={{ transitionDelay: isWorkVisible ? `${idx * 200}ms` : '0ms' }}
+            >
+              <div className="absolute top-0 right-0 w-48 h-48 bg-teal-500/5 blur-[50px] rounded-full group-hover:bg-teal-500/20 transition-all duration-700 pointer-events-none" />
+              <span className="font-mono text-teal-400 text-4xl font-bold tracking-tighter opacity-50 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_10px_rgba(45,212,191,0.3)] relative z-10">{principle.num}.</span>
+              <div className="relative z-10 mt-1">
+                <h3 className="text-2xl font-[Manrope] text-white font-semibold mb-3">
+                  {principle.title}
+                </h3>
+                <p className="text-white/70 leading-relaxed text-lg font-light">
+                  {principle.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 5. OUR TEAM */}
       <div ref={refTeamGrid} className={`max-w-6xl mx-auto mb-40 transition-all duration-1000 ease-out ${isTeamGridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
         <div className="text-center mb-16">
           <h2 className="hero-title !text-[40px] md:!text-[55px] mb-4">Our Team</h2>
@@ -187,40 +221,6 @@ export default function About({ setCurrentPage }: { setCurrentPage: (page: strin
                 <a href="#" className="text-white hover:text-teal-400 transition-colors text-sm font-semibold flex items-center gap-2 w-fit group/link relative z-10">
                   LinkedIn Profile <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
                 </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 5. HOW WE WORK */}
-      <div ref={refWork} className={`max-w-4xl mx-auto mb-40 transition-all duration-1000 ease-out ${isWorkVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
-        <div className="text-center mb-16 relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-teal-500/10 blur-[100px] rounded-full pointer-events-none" />
-          <h2 className="hero-title !text-[40px] md:!text-[55px] mb-4 relative z-10">How We Work</h2>
-          <p className="font-[Manrope] text-xl text-white/70 relative z-10">Principles, Not Promises</p>
-        </div>
-
-        <div className="space-y-6">
-          {[
-            { num: '01', title: 'We Run What We Build', desc: 'We do not hand off systems and walk away. Our teams operate what they build day to day, so we see exactly what works and what needs to change.' },
-            { num: '02', title: 'Decisions Follow Data, Not Habit', desc: 'Every system we build is reviewed against real numbers and real outcomes. When something stops performing, we adjust it.' },
-            { num: '03', title: 'Built to Fit, Not to Template', desc: 'Every business has different constraints, whether regulatory, operational, or competitive. We build systems around those constraints, not around a one-size-fits-all package.' }
-          ].map((principle, idx) => (
-            <div 
-              key={idx} 
-              className={`bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] flex items-start gap-8 hover:bg-black/60 hover:border-teal-400/40 hover:shadow-[inset_0_0_80px_rgba(45,212,191,0.1),0_0_30px_rgba(45,212,191,0.15)] transition-all duration-700 group relative overflow-hidden`}
-              style={{ transitionDelay: isWorkVisible ? `${idx * 200}ms` : '0ms' }}
-            >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-teal-500/5 blur-[50px] rounded-full group-hover:bg-teal-500/20 transition-all duration-700 pointer-events-none" />
-              <span className="font-mono text-teal-400 text-4xl font-bold tracking-tighter opacity-50 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_10px_rgba(45,212,191,0.3)] relative z-10">{principle.num}.</span>
-              <div className="relative z-10 mt-1">
-                <h3 className="text-2xl font-[Manrope] text-white font-semibold mb-3">
-                  {principle.title}
-                </h3>
-                <p className="text-white/70 leading-relaxed text-lg font-light">
-                  {principle.desc}
-                </p>
               </div>
             </div>
           ))}
