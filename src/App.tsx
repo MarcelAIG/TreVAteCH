@@ -13,19 +13,36 @@ import Solutions from './Solutions';
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact'];
 const HERO_SLIDES = [
   {
-    subtitle: '01 // The Foundation',
-    title: 'We Build Growth<br />Machines for Brokers',
-    description: 'AI-powered systems that find, convert, and retain traders.',
+    subtitle: '01 // THE ENGINE',
+    title: 'AI-Powered Lead<br />Generation',
+    description: 'We find, qualify, and engage your ideal clients, automatically.',
+    ctaText: 'Explore Lead Generation →',
+    targetPage: 'Solutions',
+    hash: '#ai-marketing-solutions'
   },
   {
-    subtitle: '02 // The Innovation',
-    title: 'Next-Gen Trading<br />Infrastructure',
-    description: 'Scalable and secure platforms built for modern brokerage demands.',
+    subtitle: '02 // THE ALWAYS-ON',
+    title: 'AI Voice, Chat & WhatsApp<br />Automation',
+    description: 'Round-the-clock conversations, bookings, and support, handled by AI.',
+    ctaText: 'See AI Automation →',
+    targetPage: 'Solutions',
+    hash: '#ai-marketing-solutions'
   },
   {
-    subtitle: '03 // The Scale',
-    title: 'Global Reach,<br />Local Expertise',
-    description: 'Expand your brokerage across borders with targeted precision.',
+    subtitle: '03 // THE INFRASTRUCTURE',
+    title: 'Dealing Desk & Risk,<br />Done Right',
+    description: 'Platform administration and risk operations built for brokers and prop firms.',
+    ctaText: 'View Broker Solutions →',
+    targetPage: 'Solutions',
+    hash: '#broker-infrastructure'
+  },
+  {
+    subtitle: '04 // THE PARTNER',
+    title: 'Two Disciplines.<br />One Standard.',
+    description: 'AI growth systems and financial operations, built by specialists, run to an institutional standard.',
+    ctaText: 'Start a Conversation →',
+    targetPage: 'Contact',
+    hash: ''
   }
 ];
 const VIDEO_SRC = 'https://res.cloudinary.com/dn1ejg82q/video/upload/v1/green-digital-dna-helix-with-binary-code-stream-ba-2026-01-28-03-25-11-utc_ljevwg.mp4';
@@ -52,6 +69,21 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [currentPage, setCurrentPage] = useState('Home');
+
+  const handleSlideAction = (targetPage: string, hash: string) => {
+    setCurrentPage(targetPage);
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash.replace('#', ''));
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   const darkOverlayRef = useRef<HTMLDivElement>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -363,14 +395,32 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Audio Controls */}
-      <button 
-        onClick={() => setIsMuted(!isMuted)}
-        className="fixed top-[28px] right-[8%] z-50 p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white"
-        aria-label={isMuted ? "Unmute music" : "Mute music"}
-      >
-        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-      </button>
+      {/* Top Right Actions */}
+      <div className="fixed top-4 right-[8%] z-50 flex items-center gap-4 pointer-events-auto">
+        <div className="relative flex items-center justify-center group">
+          {/* Smooth modern green breathing aura */}
+          <div className="absolute -inset-1 bg-teal-400/40 rounded-full blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
+          
+          <button 
+            onClick={() => {
+              setCurrentPage('Contact');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="group/btn relative bg-white text-black text-sm font-[Manrope] font-semibold rounded-full px-6 py-2.5 overflow-hidden active:scale-[0.97] transition-all duration-500 shadow-[0_0_15px_rgba(45,212,191,0.4)] hover:shadow-[0_0_30px_rgba(45,212,191,0.8)] hover:scale-[1.03]"
+          >
+            <span className="relative z-10 flex items-center gap-2">Let's talk</span>
+            <span className="absolute inset-0 bg-gradient-to-b from-white to-teal-50/80 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+          </button>
+        </div>
+
+        <button 
+          onClick={() => setIsMuted(!isMuted)}
+          className="p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+          aria-label={isMuted ? "Unmute music" : "Mute music"}
+        >
+          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+        </button>
+      </div>
 
       {/* Dynamic Sections Content - Fully Native Scrolling */}
       <div className="relative z-10 w-full pointer-events-none">
@@ -393,12 +443,12 @@ export default function App() {
               WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)'
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent z-10 w-1/2" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
             <video
               ref={heroVideoElementRef}
               autoPlay loop muted playsInline
-              className="w-full h-full object-cover object-center opacity-80 mix-blend-screen"
+              className="w-full h-full object-cover object-right opacity-80 mix-blend-screen"
             />
           </div>
 
@@ -420,32 +470,29 @@ export default function App() {
               autoplay={{ delay: 4000, disableOnInteraction: false }}
               grabCursor={true}
               loop={true}
-              className="hero-swiper max-w-4xl !mx-0"
+              className="hero-swiper w-full max-w-5xl !mx-0"
             >
               {HERO_SLIDES.map((slide, index) => (
                 <SwiperSlide key={index}>
-                  <div className="max-w-2xl text-left">
+                  <div className="max-w-4xl text-left flex flex-col items-start">
                     <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">{slide.subtitle}</p>
                     <h1 
-                      className="hero-title !text-left !text-[60px] md:!text-[100px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg"
+                      className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.9] !tracking-tight mb-6 drop-shadow-lg"
                       dangerouslySetInnerHTML={{ __html: slide.title }}
                     />
-                    <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg">{slide.description}</p>
+                    <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg mb-10">{slide.description}</p>
+                    
+                    <button 
+                      onClick={() => handleSlideAction(slide.targetPage, slide.hash)}
+                      className="group relative text-teal-400 text-lg font-[Manrope] font-semibold flex items-center gap-2 active:scale-[0.97] transition-all duration-500 hover:text-teal-300 drop-shadow-[0_0_8px_rgba(45,212,191,0.4)] hover:drop-shadow-[0_0_20px_rgba(45,212,191,0.8)]"
+                    >
+                      <span>{slide.ctaText.replace('→', '')}</span>
+                      <span className="group-hover:translate-x-2 transition-transform duration-500 text-teal-400 drop-shadow-[0_0_12px_rgba(45,212,191,0.6)]">→</span>
+                    </button>
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-            
-            {/* Hero Action Buttons */}
-            <div className={`mt-10 flex items-center gap-4 transition-all duration-1000 delay-300 ${framesReady ? 'opacity-100' : 'opacity-0'}`}>
-              <button className="group relative bg-white text-black text-sm font-[Manrope] font-medium rounded-full px-8 py-4 overflow-hidden active:scale-[0.97] transition-all duration-200 shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_24px_4px_rgba(255,255,255,0.25)] hover:scale-[1.03]">
-                <span className="relative z-10">Let's talk</span>
-                <span className="absolute inset-0 bg-gradient-to-b from-white to-white/85 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-              </button>
-              <button className="liquid-glass group text-white text-sm font-[Manrope] font-medium rounded-full px-8 py-4 active:scale-[0.97] transition-all duration-200 hover:scale-[1.03] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_2px_rgba(255,255,255,0.07)] border border-white/10">
-                Strategic marketing
-              </button>
-            </div>
           </div>
         </div>
 
