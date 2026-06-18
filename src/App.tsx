@@ -467,7 +467,9 @@ export default function App() {
               spaceBetween={50}
               slidesPerView={1}
               pagination={{ clickable: true }}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: false }}
+              observer={true}
+              observeParents={true}
               grabCursor={true}
               loop={true}
               className="hero-swiper w-full max-w-5xl !mx-0"
