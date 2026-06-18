@@ -265,7 +265,7 @@ export default function App() {
         if (darkOverlayRef.current) {
           darkOverlayRef.current.style.opacity = '0.85'; // Very dark when idle
         }
-      }, 150);
+      }, 50);
 
       if (heroVideoRef.current) {
         // Fade out between 0 and 90vh
@@ -373,7 +373,7 @@ export default function App() {
             className={`w-full h-full object-cover transition-opacity duration-500 origin-center ${framesReady ? 'opacity-100' : 'opacity-0'}`}
             style={{ filter: 'hue-rotate(55deg)' }}
           />
-          <div ref={darkOverlayRef} className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-1000 ease-in-out opacity-0" />
+          <div ref={darkOverlayRef} className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-300 ease-in-out opacity-0" />
         </div>
       </div>
 
@@ -500,7 +500,7 @@ export default function App() {
 
         {/* Section 1: Center Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">02 // The Advantage</p>
             <h1 className="hero-title !text-right !text-[50px] md:!text-[70px] !leading-[0.85] !tracking-tight mb-6 drop-shadow-lg">Built by Specialists,<br />Not Generalists</h1>
             <p className="font-[Manrope] text-lg md:text-xl font-light text-white/90 drop-shadow-md">Our teams have run broker operations and built growth systems from the inside. We speak both languages: lot volumes and retention funnels, lead funnels and conversion data.</p>
@@ -509,7 +509,7 @@ export default function App() {
 
         {/* Section 2: Center Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">03 // THE PROCESS</p>
             <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Outcome<br />Obsessed</h1>
             <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against real outcomes: qualified leads, conversions, and revenue. What does not perform gets rebuilt or removed.</p>
@@ -518,7 +518,7 @@ export default function App() {
 
         {/* Section 3: Bottom Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">04 // The Boundary</p>
             <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Compliance<br />Built In</h1>
             <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
@@ -527,7 +527,7 @@ export default function App() {
 
         {/* Section 4: Top Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">05 // THE ENGINE</p>
             <h1 className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">AI Growth<br />Systems</h1>
             <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-disc list-inside space-y-3 text-left">
@@ -540,7 +540,7 @@ export default function App() {
 
         {/* Section 5: Center Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">06 // THE STRATEGY</p>
             <h1 className="hero-title !text-right !text-[60px] md:!text-[85px] !leading-[0.85] !tracking-tight mb-6">Performance<br />Marketing</h1>
             <ul className="font-[Manrope] text-lg md:text-xl font-light text-white/80 list-none space-y-3">
@@ -553,7 +553,7 @@ export default function App() {
 
         {/* Section 6: Center -> Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">07 // THE INFRASTRUCTURE</p>
             <h1 className="hero-title !text-left !text-[50px] md:!text-[70px] !leading-[0.85] !tracking-tight mb-6">Operations Built for<br />Regulated Brokers</h1>
             <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">Platform administration, dealing desk operations, and risk management for brokers and prop firms, built within regulatory and platform boundaries from day one.</p>
@@ -562,7 +562,7 @@ export default function App() {
 
         {/* Section 7: Center -> Right */}
         <div className="py-[15vh] flex flex-col justify-center items-end pr-[8%] w-full text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">08 // THE CONVERGENCE</p>
             <h1 className="hero-title !text-right !text-[45px] md:!text-[65px] !leading-[0.85] !tracking-tight mb-6">From the First Conversation<br />to the Last Trade</h1>
             <p className="font-[Manrope] text-lg md:text-xl font-light text-white/80">TrevaTech builds the systems that move businesses and brokers forward, growth on one side, infrastructure on the other.</p>
@@ -571,7 +571,7 @@ export default function App() {
 
         {/* Section 8: Testimonials -> Left */}
         <div className="py-[15vh] flex flex-col justify-center items-start pl-[8%] w-full text-left">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center relative overflow-hidden">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-14 rounded-[2rem] w-full md:w-[700px] min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center relative overflow-hidden">
             <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase">09 // What Our Partners Say</p>
             
             <style>{`
@@ -612,7 +612,7 @@ export default function App() {
 
         {/* Section 10: CTA -> Center */}
         <div className="py-[15vh] flex flex-col justify-center items-center w-full text-center px-[8%]">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-10 md:p-16 rounded-[2rem] w-full max-w-4xl min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black flex flex-col justify-center items-center relative overflow-hidden">
+          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-10 md:p-16 rounded-[2rem] w-full max-w-4xl min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center relative overflow-hidden">
             <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold">10 // Ready to scale?</p>
             <h1 className="hero-title !text-center !text-[55px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-8">Ready to Build Something<br />That Works?</h1>
             <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">Whether you're scaling outreach or running a trading desk, let's talk about what TrevaTech can build for you.</p>
