@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import Solutions from './Solutions';
 import About from './About';
 import FAQ from './FAQ';
+import Contact from './Contact';
 
 
 const NAV_LINKS = ['Home', 'About', 'Solutions', 'FAQ', 'Contact'];
@@ -662,6 +663,12 @@ export default function App() {
         {currentPage === 'FAQ' && (
           <div className="pointer-events-auto w-full relative z-20">
             <FAQ setCurrentPage={setCurrentPage} />
+          </div>
+        )}
+
+        {currentPage === 'Contact' && (
+          <div className="pointer-events-auto w-full relative z-20">
+            <Contact setCurrentPage={setCurrentPage} />
           </div>
         )}
 
