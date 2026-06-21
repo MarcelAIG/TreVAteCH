@@ -399,7 +399,7 @@ export default function App() {
       </nav>
 
       {/* Top Right Actions */}
-      <div className="fixed top-20 md:top-4 right-[4%] md:right-[8%] z-50 flex items-center gap-3 md:gap-4 pointer-events-auto scale-75 md:scale-100 origin-top-right">
+      <div className="fixed top-20 md:top-4 right-[4%] md:right-[8%] z-50 flex items-center gap-2 md:gap-4 pointer-events-auto origin-top-right">
         <div className="relative flex items-center justify-center group">
           {/* Smooth modern green breathing aura */}
           <div className="absolute -inset-1 bg-teal-400/40 rounded-full blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
@@ -409,19 +409,19 @@ export default function App() {
               setCurrentPage('Contact');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="group/btn relative bg-white text-black text-sm font-[Manrope] font-semibold rounded-full px-6 py-2.5 overflow-hidden active:scale-[0.97] transition-all duration-500 shadow-[0_0_15px_rgba(45,212,191,0.4)] hover:shadow-[0_0_30px_rgba(45,212,191,0.8)] hover:scale-[1.03]"
+            className="group/btn relative bg-white text-black text-[10px] md:text-sm font-[Manrope] font-semibold rounded-full px-4 py-1.5 md:px-6 md:py-2.5 overflow-hidden active:scale-[0.97] transition-all duration-500 shadow-[0_0_15px_rgba(45,212,191,0.4)] hover:shadow-[0_0_30px_rgba(45,212,191,0.8)] hover:scale-[1.03]"
           >
-            <span className="relative z-10 flex items-center gap-2">Let's talk</span>
+            <span className="relative z-10 flex items-center gap-1 md:gap-2">Let's talk</span>
             <span className="absolute inset-0 bg-gradient-to-b from-white to-teal-50/80 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
           </button>
         </div>
 
         <button 
           onClick={() => setIsMuted(!isMuted)}
-          className="p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+          className="p-1.5 md:p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
           aria-label={isMuted ? "Unmute music" : "Mute music"}
         >
-          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          {isMuted ? <VolumeX size={14} className="md:w-[18px] md:h-[18px]" /> : <Volume2 size={14} className="md:w-[18px] md:h-[18px]" />}
         </button>
       </div>
 

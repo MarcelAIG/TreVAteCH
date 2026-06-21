@@ -122,26 +122,26 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
   ];
 
   return (
-    <div className={`min-h-screen pt-32 pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen pt-24 md:pt-32 pb-10 md:pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       
       {/* 1. HERO SECTION */}
-      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-32 mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-        <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
+      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-16 md:mb-32 mt-8 md:mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <p className="font-mono text-teal-400 mb-4 md:mb-6 tracking-widest text-xs md:text-sm uppercase font-semibold drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
           FAQ
         </p>
-        <h1 className="hero-title !text-[50px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-8">
+        <h1 className="hero-title !text-[36px] md:!text-[75px] !leading-[1] md:!leading-[0.9] !tracking-tight mb-6 md:mb-8">
           Questions, Answered
         </h1>
-        <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 leading-relaxed max-w-3xl mx-auto">
+        <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/80 leading-relaxed max-w-3xl mx-auto">
           Common questions about how TrevaTech works, across Broker Infrastructure and AI Marketing Solutions. Can't find what you're looking for? Reach out directly.
         </p>
       </div>
 
       {/* 2. GENERAL FAQ (Full Width) */}
-      <div ref={refGeneral} className={`max-w-4xl mx-auto mb-32 transition-all duration-1000 delay-200 ease-out relative ${isGeneralVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+      <div ref={refGeneral} className={`max-w-4xl mx-auto mb-20 md:mb-32 transition-all duration-1000 delay-200 ease-out relative ${isGeneralVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/5 blur-[120px] rounded-full pointer-events-none" />
         
-        <h2 className="text-3xl md:text-4xl font-[Manrope] font-semibold text-white mb-10 text-center relative z-10">
+        <h2 className="text-[28px] md:text-4xl font-[Manrope] font-semibold text-white mb-8 md:mb-10 text-center relative z-10">
           General
         </h2>
 
@@ -165,22 +165,22 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
                   </>
                 )}
                 
-                <div className="px-8 py-6 flex justify-between items-center relative z-10">
-                  <h3 className={`text-xl font-[Manrope] font-semibold transition-all duration-500 pr-8
+                <div className="px-5 md:px-8 py-4 md:py-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left relative z-10 gap-3 md:gap-0">
+                  <h3 className={`text-[15px] md:text-xl font-[Manrope] font-semibold transition-all duration-500 md:pr-8
                     ${isOpen ? 'text-teal-300 drop-shadow-[0_0_10px_rgba(35,178,159,0.4)] tracking-wide' : 'text-white/90 group-hover:text-teal-50'}`}>
                     {faq.q}
                   </h3>
-                  <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-700
+                  <div className={`flex-shrink-0 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-700
                     ${isOpen ? 'bg-teal-400 text-black shadow-[0_0_25px_#2dd4bf] rotate-180 scale-110' : 'bg-white/5 text-white/50 group-hover:bg-teal-500/20 group-hover:text-teal-400 group-hover:scale-110'}`}>
-                    <ChevronDown size={24} />
+                    <ChevronDown size={16} className="md:w-6 md:h-6" />
                   </div>
                 </div>
                 <div 
-                  className={`px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10
-                    ${isOpen ? 'max-h-96 opacity-100 pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
+                  className={`px-5 md:px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10 text-center md:text-left
+                    ${isOpen ? 'max-h-96 opacity-100 pb-5 md:pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
                 >
                   <div className={`transition-all duration-700 delay-100 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    <p className="text-white/70 leading-relaxed font-light text-lg">
+                    <p className="text-white/70 leading-relaxed font-light text-[13px] md:text-lg">
                       {faq.a}
                     </p>
                   </div>
@@ -192,15 +192,15 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
       </div>
 
       {/* 3. TWO COLUMNS FAQ */}
-      <div ref={refColumns} className={`max-w-7xl mx-auto mb-40 transition-all duration-1000 ease-out relative ${isColumnsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
+      <div ref={refColumns} className={`max-w-7xl mx-auto mb-20 md:mb-40 transition-all duration-1000 ease-out relative ${isColumnsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
           
           {/* Broker Infrastructure Column */}
           <div className="relative">
             <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-teal-500/5 blur-[100px] rounded-full pointer-events-none" />
-            <div className="mb-10 text-center lg:text-left relative z-10">
-              <h2 className="text-3xl font-[Manrope] font-semibold text-white mb-3">Broker Infrastructure</h2>
-              <p className="text-teal-400/80 font-mono text-sm uppercase tracking-widest">For Brokers & Prop Firms</p>
+            <div className="mb-8 md:mb-10 text-center lg:text-left relative z-10">
+              <h2 className="text-[26px] md:text-3xl font-[Manrope] font-semibold text-white mb-2 md:mb-3">Broker Infrastructure</h2>
+              <p className="text-teal-400/80 font-mono text-[10px] md:text-sm uppercase tracking-widest">For Brokers & Prop Firms</p>
             </div>
             <div className="space-y-4 relative z-10">
               {brokerFaqs.map((faq, idx) => {
@@ -222,22 +222,22 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
                       </>
                     )}
                     
-                    <div className="px-6 md:px-8 py-6 flex justify-between items-center relative z-10">
-                      <h3 className={`text-[17px] md:text-lg font-[Manrope] font-semibold transition-all duration-500 pr-6
+                    <div className="px-5 md:px-8 py-4 md:py-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left relative z-10 gap-3 md:gap-0">
+                      <h3 className={`text-[14px] md:text-lg font-[Manrope] font-semibold transition-all duration-500 md:pr-6
                         ${isOpen ? 'text-teal-300 drop-shadow-[0_0_10px_rgba(35,178,159,0.4)] tracking-wide' : 'text-white/90 group-hover:text-teal-50'}`}>
                         {faq.q}
                       </h3>
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-700
+                      <div className={`flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-700
                         ${isOpen ? 'bg-teal-400 text-black shadow-[0_0_20px_#2dd4bf] rotate-180 scale-110' : 'bg-white/5 text-white/50 group-hover:bg-teal-500/20 group-hover:text-teal-400 group-hover:scale-110'}`}>
-                        <ChevronDown size={20} />
+                        <ChevronDown size={14} className="md:w-[20px] md:h-[20px]" />
                       </div>
                     </div>
                     <div 
-                      className={`px-6 md:px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10
-                        ${isOpen ? 'max-h-96 opacity-100 pb-6 md:pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
+                      className={`px-5 md:px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10 text-center md:text-left
+                        ${isOpen ? 'max-h-96 opacity-100 pb-5 md:pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
                     >
                       <div className={`transition-all duration-700 delay-100 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                        <p className="text-white/70 leading-relaxed font-light text-[15px] md:text-base">
+                        <p className="text-white/70 leading-relaxed font-light text-[12px] md:text-base">
                           {faq.a}
                         </p>
                       </div>
@@ -251,9 +251,9 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
           {/* AI Marketing Solutions Column */}
           <div className="relative mt-12 lg:mt-0">
             <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-500/5 blur-[100px] rounded-full pointer-events-none" />
-            <div className="mb-10 text-center lg:text-left relative z-10">
-              <h2 className="text-3xl font-[Manrope] font-semibold text-white mb-3">AI Marketing Solutions</h2>
-              <p className="text-teal-400/80 font-mono text-sm uppercase tracking-widest">For B2B Growth</p>
+            <div className="mb-8 md:mb-10 text-center lg:text-left relative z-10">
+              <h2 className="text-[26px] md:text-3xl font-[Manrope] font-semibold text-white mb-2 md:mb-3">AI Marketing Solutions</h2>
+              <p className="text-teal-400/80 font-mono text-[10px] md:text-sm uppercase tracking-widest">For B2B Growth</p>
             </div>
             <div className="space-y-4 relative z-10">
               {aiFaqs.map((faq, idx) => {
@@ -275,22 +275,22 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
                       </>
                     )}
                     
-                    <div className="px-6 md:px-8 py-6 flex justify-between items-center relative z-10">
-                      <h3 className={`text-[17px] md:text-lg font-[Manrope] font-semibold transition-all duration-500 pr-6
+                    <div className="px-5 md:px-8 py-4 md:py-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left relative z-10 gap-3 md:gap-0">
+                      <h3 className={`text-[14px] md:text-lg font-[Manrope] font-semibold transition-all duration-500 md:pr-6
                         ${isOpen ? 'text-teal-300 drop-shadow-[0_0_10px_rgba(35,178,159,0.4)] tracking-wide' : 'text-white/90 group-hover:text-teal-50'}`}>
                         {faq.q}
                       </h3>
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-700
+                      <div className={`flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-700
                         ${isOpen ? 'bg-teal-400 text-black shadow-[0_0_20px_#2dd4bf] rotate-180 scale-110' : 'bg-white/5 text-white/50 group-hover:bg-teal-500/20 group-hover:text-teal-400 group-hover:scale-110'}`}>
-                        <ChevronDown size={20} />
+                        <ChevronDown size={14} className="md:w-[20px] md:h-[20px]" />
                       </div>
                     </div>
                     <div 
-                      className={`px-6 md:px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10
-                        ${isOpen ? 'max-h-96 opacity-100 pb-6 md:pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
+                      className={`px-5 md:px-8 overflow-hidden transition-all duration-700 ease-in-out relative z-10 text-center md:text-left
+                        ${isOpen ? 'max-h-96 opacity-100 pb-5 md:pb-8 translate-y-0' : 'max-h-0 opacity-0 pb-0 -translate-y-4'}`}
                     >
                       <div className={`transition-all duration-700 delay-100 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                        <p className="text-white/70 leading-relaxed font-light text-[15px] md:text-base">
+                        <p className="text-white/70 leading-relaxed font-light text-[12px] md:text-base">
                           {faq.a}
                         </p>
                       </div>
@@ -305,24 +305,24 @@ export default function FAQ({ setCurrentPage }: { setCurrentPage: (page: string)
       </div>
 
       {/* 4. FINAL CTA */}
-      <div ref={refCTA} className={`max-w-4xl mx-auto text-center bg-black/60 backdrop-blur-xl border border-white/10 p-12 md:p-20 rounded-[3rem] relative overflow-hidden hover:border-teal-400/40 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] transition-all duration-[1.5s] ease-out ${isCTAVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
+      <div ref={refCTA} className={`max-w-4xl mx-auto text-center bg-black/60 backdrop-blur-xl border border-white/10 p-8 md:p-20 rounded-3xl md:rounded-[3rem] relative overflow-hidden hover:border-teal-400/40 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] transition-all duration-[1.5s] ease-out ${isCTAVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-teal-500/20 blur-[120px] pointer-events-none" />
         
-        <h2 className="hero-title !text-[45px] md:!text-[65px] !leading-[0.9] mb-8 relative z-10">
+        <h2 className="hero-title !text-[36px] md:!text-[65px] !leading-[1] md:!leading-[0.9] mb-4 md:mb-8 relative z-10">
           Still Have Questions?
         </h2>
-        <p className="font-[Manrope] text-xl text-white/80 max-w-2xl mx-auto mb-12 relative z-10 font-light">
+        <p className="font-[Manrope] text-xs md:text-xl text-white/80 max-w-2xl mx-auto mb-8 md:mb-12 relative z-10 font-light">
           Book a call and we'll walk you through exactly how TrevaTech can help your business.
         </p>
 
         <button 
           onClick={() => setCurrentPage('Contact')}
-          className="group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-16 py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer inline-flex items-center gap-4 relative z-10"
+          className="group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-10 py-4 md:px-16 md:py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer inline-flex items-center gap-3 md:gap-4 relative z-10"
         >
           <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
-          <span className="relative z-10 text-black font-[Manrope] font-bold text-2xl tracking-wide flex items-center gap-3">
+          <span className="relative z-10 text-black font-[Manrope] font-bold text-lg md:text-2xl tracking-wide flex items-center gap-2 md:gap-3">
             Book a Call 
-            <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform duration-300" />
+            <ArrowRight size={18} className="md:w-[24px] md:h-[24px] group-hover:translate-x-2 transition-transform duration-300" />
           </span>
         </button>
       </div>

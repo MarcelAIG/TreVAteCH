@@ -42,10 +42,10 @@ export default function About({ setCurrentPage }: { setCurrentPage: (page: strin
   }, []);
 
   return (
-    <div className={`min-h-screen pt-32 pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen pt-28 md:pt-32 pb-10 md:pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       
       {/* 1. HERO SECTION */}
-      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-16 md:mb-32 mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-16 md:mb-32 mt-12 md:mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
         <p className="font-mono text-teal-400 mb-4 md:mb-6 tracking-widest text-xs md:text-sm uppercase font-semibold drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
           About TrevaTech
         </p>

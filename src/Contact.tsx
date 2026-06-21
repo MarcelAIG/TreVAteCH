@@ -52,22 +52,22 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
   };
 
   return (
-    <div className={`min-h-screen pt-32 pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen pt-24 md:pt-32 pb-10 md:pb-20 px-[8%] transition-opacity duration-1000 relative z-20 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       
       {/* 1. HERO SECTION */}
-      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-24 mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-        <p className="font-mono text-teal-400 mb-6 tracking-widest text-sm uppercase font-semibold drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
+      <div ref={refHero} className={`max-w-4xl mx-auto text-center mb-10 md:mb-24 mt-8 md:mt-12 transition-all duration-1000 ease-out ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <p className="font-mono text-teal-400 mb-4 md:mb-6 tracking-widest text-xs md:text-sm uppercase font-semibold drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
           Contact
         </p>
-        <h1 className="hero-title !text-[50px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-8">
+        <h1 className="hero-title !text-[40px] md:!text-[75px] !leading-[1] md:!leading-[0.9] !tracking-tight mb-6 md:mb-8">
           Let's Talk
         </h1>
-        <p className="font-[Manrope] text-xl md:text-2xl font-light text-white/80 leading-relaxed max-w-3xl mx-auto">
+        <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/80 leading-relaxed max-w-3xl mx-auto">
           Tell us about your business and what you need. We'll get back to you to schedule a discovery call.
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-20">
         
         {/* 2. CONTACT FORM (Left Column, 7/12 width) */}
         <div 

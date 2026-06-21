@@ -58,7 +58,7 @@ export default function Solutions() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white font-[Manrope] relative bg-black pt-20 pb-20 w-full overflow-hidden">
+    <div className="min-h-screen text-white font-[Manrope] relative bg-black pt-28 md:pt-20 pb-20 w-full overflow-hidden">
       
       {/* Background gradients for dark premium feel */}
       <div className="fixed inset-0 pointer-events-none opacity-40">
@@ -70,7 +70,7 @@ export default function Solutions() {
         
         {/* --- Hero Section --- */}
         <div ref={refHero} className="mb-16 md:mb-32">
-          <h1 className={`hero-title mt-8 text-center !text-[40px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-6 md:mb-10 drop-shadow-xl transition-all duration-1000 ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h1 className={`hero-title mt-12 md:mt-8 text-center !text-[40px] md:!text-[75px] !leading-[0.9] !tracking-tight mb-6 md:mb-10 drop-shadow-xl transition-all duration-1000 ${isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             Our Solutions
           </h1>
           
