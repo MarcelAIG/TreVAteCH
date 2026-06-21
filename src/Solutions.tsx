@@ -421,17 +421,17 @@ export default function Solutions() {
         </div>
 
         {/* --- Simple Numbers Stats Bar --- */}
-        <div ref={refStats} className={`py-10 md:py-16 border-t border-b border-white/10 mb-20 md:mb-32 bg-white/[0.02] rounded-[2rem] md:rounded-[3rem] text-center shadow-2xl transition-all duration-1000 transform ${isStatsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10 px-6 md:px-8">
-            <div className={`flex flex-col items-center pt-6 md:pt-0 transition-all duration-700 delay-100 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div ref={refStats} className={`py-4 md:py-16 md:border-t md:border-b border-white/10 mb-20 md:mb-32 md:bg-white/[0.02] md:rounded-[3rem] text-center md:shadow-2xl transition-all duration-1000 transform ${isStatsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-4 md:gap-12 md:divide-x divide-white/10 px-[6vw] md:px-8 pb-4 md:pb-0 snap-x snap-mandatory -mx-[6vw] md:mx-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className={`shrink-0 w-[55vw] md:w-auto snap-center aspect-square md:aspect-auto flex flex-col items-center justify-center bg-white/[0.02] md:bg-transparent border border-white/10 md:border-none rounded-3xl md:rounded-none transition-all duration-700 delay-100 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h4 className="font-mono text-[40px] md:text-[70px] leading-none text-teal-400 font-bold mb-2 md:mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">3</h4>
               <p className="text-white/80 uppercase tracking-[0.2em] text-[10px] md:text-sm font-semibold">Active Broker<br/>Partnerships</p>
             </div>
-            <div className={`flex flex-col items-center pt-6 md:pt-0 transition-all duration-700 delay-300 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`shrink-0 w-[55vw] md:w-auto snap-center aspect-square md:aspect-auto flex flex-col items-center justify-center bg-white/[0.02] md:bg-transparent border border-white/10 md:border-none rounded-3xl md:rounded-none transition-all duration-700 delay-300 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h4 className="font-mono text-[40px] md:text-[70px] leading-none text-teal-400 font-bold mb-2 md:mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">6</h4>
               <p className="text-white/80 uppercase tracking-[0.2em] text-[10px] md:text-sm font-semibold">Marketing Clients<br/>Served</p>
             </div>
-            <div className={`flex flex-col items-center pt-6 md:pt-0 transition-all duration-700 delay-500 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`shrink-0 w-[55vw] md:w-auto snap-center aspect-square md:aspect-auto flex flex-col items-center justify-center bg-white/[0.02] md:bg-transparent border border-white/10 md:border-none rounded-3xl md:rounded-none transition-all duration-700 delay-500 ${isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h4 className="font-mono text-[40px] md:text-[70px] leading-none text-teal-400 font-bold mb-2 md:mb-4 drop-shadow-[0_0_15px_rgba(35,178,159,0.4)]">5+</h4>
               <p className="text-white/80 uppercase tracking-[0.2em] text-[10px] md:text-sm font-semibold">Years in<br/>Industry</p>
             </div>
