@@ -215,7 +215,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
                 </div>
               </a>
 
-              <a href="tel:+447457409190" className="flex items-center gap-5 group/link">
+              <a href="https://wa.me/447457409190" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group/link">
                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-teal-400 group-hover/link:bg-teal-500/20 group-hover/link:border-teal-500/40 group-hover/link:shadow-[0_0_15px_rgba(45,212,191,0.3)] transition-all duration-500 shrink-0">
                   <Phone size={20} />
                 </div>

@@ -746,7 +746,7 @@ export default function App() {
                 <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
                 Contact Us
               </h3>
-              <a href="tel:+447457409190" className="flex items-center gap-4 text-white/50 hover:text-white transition-all duration-500 mb-4 font-[Manrope] text-sm group bg-white/[0.02] hover:bg-white/[0.05] p-4 rounded-2xl border border-white/[0.03] hover:border-teal-400/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] cursor-pointer">
+              <a href="https://wa.me/447457409190" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-white/50 hover:text-white transition-all duration-500 mb-4 font-[Manrope] text-sm group bg-white/[0.02] hover:bg-white/[0.05] p-4 rounded-2xl border border-white/[0.03] hover:border-teal-400/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:scale-[1.02] cursor-pointer">
                 <div className="w-10 h-10 shrink-0 rounded-full bg-black/40 flex items-center justify-center group-hover:bg-teal-400/20 transition-colors duration-500 border border-white/[0.05] group-hover:border-teal-400/30">
                   <Phone size={18} className="text-white/40 group-hover:text-teal-400 transition-colors duration-500" />
                 </div>
