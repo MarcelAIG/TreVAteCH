@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ChevronDown, Volume2, VolumeX, Instagram, Facebook, Linkedin, Cpu, MapPin, Phone, Mail } from 'lucide-react';
+import { ChevronDown, Volume2, VolumeX, Instagram, Facebook, Linkedin, Cpu, MapPin, Phone, Mail, Menu, X } from 'lucide-react';
 import Hls from 'hls.js';
 import logoImg from '../assets/Artboard 6 copy 4.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -72,6 +72,7 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [currentPage, setCurrentPage] = useState('Home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSlideAction = (targetPage: string, hash: string) => {
     setCurrentPage(targetPage);
@@ -380,8 +381,8 @@ export default function App() {
         </div>
       </div>
 
-      {/* Nav */}
-      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
+      {/* Desktop Nav */}
+      <nav className="hidden md:block fixed top-5 left-1/2 -translate-x-1/2 z-50 whitespace-nowrap">
         <div className="liquid-glass flex items-center justify-center rounded px-6 py-2.5">
           <div className="flex items-center gap-5 pointer-events-auto">
             {NAV_LINKS.map((link) => (
@@ -398,8 +399,24 @@ export default function App() {
         </div>
       </nav>
 
+      {/* Mobile Nav Overlay */}
+      <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-500 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col items-center gap-8 pointer-events-auto mt-10">
+          {NAV_LINKS.map((link) => (
+            <a 
+              key={link} 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); setCurrentPage(link); setIsMobileMenuOpen(false); }}
+              className={`text-2xl font-[Manrope] transition-colors duration-200 ${currentPage === link ? 'text-teal-400 font-medium scale-110' : 'font-light text-white/70 hover:text-white active:scale-95'}`}
+            >
+              {link}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* Top Right Actions */}
-      <div className="fixed top-20 md:top-4 right-[4%] md:right-[8%] z-50 flex items-center gap-2 md:gap-4 pointer-events-auto origin-top-right">
+      <div className="fixed top-[20px] md:top-4 right-[4%] md:right-[8%] z-50 flex items-center gap-2 md:gap-4 pointer-events-auto origin-top-right">
         <div className="relative flex items-center justify-center group">
           {/* Smooth modern green breathing aura */}
           <div className="absolute -inset-1 bg-teal-400/40 rounded-full blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
@@ -422,6 +439,15 @@ export default function App() {
           aria-label={isMuted ? "Unmute music" : "Mute music"}
         >
           {isMuted ? <VolumeX size={14} className="md:w-[18px] md:h-[18px]" /> : <Volume2 size={14} className="md:w-[18px] md:h-[18px]" />}
+        </button>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="md:hidden p-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
         </button>
       </div>
 
