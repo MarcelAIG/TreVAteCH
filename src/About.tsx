@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Target, Users, BarChart3, ShieldCheck, ArrowRight, CheckCircle2 } from 'lucide-react';
+import faryalImg from '../assets/IMG_0853.JPG.jpeg';
+import parvanehImg from '../assets/IMG_0828.JPG.jpeg';
+import pouriaImg from '../assets/IMG_0830.JPG (1).jpeg';
 
 function useIntersectionObserver(options = {}) {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -202,30 +205,50 @@ export default function About({ setCurrentPage }: { setCurrentPage: (page: strin
 
         {/* Dummy Grid for Team */}
         <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 pb-6 md:pb-0 snap-x snap-mandatory -mx-[8vw] px-[8vw] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {[1, 2, 3].map((i, idx) => (
+          {[
+            {
+              name: 'Faryal Bahrami',
+              title: 'Founder & Head of Dealing Desk',
+              team: 'Broker Infrastructure',
+              bio: 'More than 10 years of industry expertise and over 5 years of hands-on experience in dealing and risk management.',
+              image: faryalImg,
+              objectPosition: 'center 15%'
+            },
+            {
+              name: 'Parvaneh Marhamati',
+              title: 'Co-founder & CEO',
+              team: 'Leadership',
+              bio: 'More than 5 years of industry expertise, specializing in marketing and business development.',
+              image: parvanehImg,
+              objectPosition: 'center 5%'
+            },
+            {
+              name: 'Pouria FardPour',
+              title: 'Co-founder & Head of Sales',
+              team: 'Sales & Growth',
+              bio: 'Over 15 years of sales expertise and business development experience.',
+              image: pouriaImg,
+              objectPosition: 'center 20%'
+            }
+          ].map((member, idx) => (
             <div 
-              key={i} 
+              key={idx} 
               className={`shrink-0 w-[85vw] md:w-auto snap-center group bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden hover:border-teal-400/40 hover:shadow-[0_0_40px_rgba(45,212,191,0.15)] transition-all duration-700 delay-${idx * 100}`}
             >
-              <div className="w-full h-48 md:h-72 bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative overflow-hidden border-b border-white/10">
-                <Users size={48} className="md:w-[64px] md:h-[64px] text-white/20 group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                  <span className="text-teal-400 font-mono text-xs md:text-sm tracking-widest uppercase drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">Photo Pending</span>
-                </div>
+              <div className="w-full h-[320px] md:h-[400px] bg-gradient-to-br from-white/5 to-white/[0.02] flex items-center justify-center relative overflow-hidden border-b border-white/10">
+                <img src={member.image} alt={member.name} style={{ objectPosition: member.objectPosition }} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100" />
               </div>
-              <div className="p-6 md:p-8 relative overflow-hidden">
+              <div className="p-6 md:p-8 relative overflow-hidden -mt-4 bg-gradient-to-b from-transparent to-black/40">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 blur-[40px] rounded-full group-hover:bg-teal-500/20 transition-all duration-700 pointer-events-none" />
                 <div className="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-teal-900/40 border border-teal-500/30 text-teal-400 text-[10px] md:text-xs font-mono uppercase tracking-widest rounded-full mb-4 md:mb-5 relative z-10">
-                  {i % 2 === 0 ? 'AI Marketing' : 'Broker Infrastructure'}
+                  {member.team}
                 </div>
-                <h3 className="text-xl md:text-2xl font-[Manrope] text-white font-semibold mb-1 relative z-10">Name Pending</h3>
-                <p className="text-teal-400/80 mb-3 md:mb-5 text-[10px] md:text-sm font-medium uppercase tracking-wider relative z-10">Role / Title</p>
-                <p className="text-white/70 font-light text-[13px] md:text-[15px] leading-relaxed mb-6 md:mb-8 relative z-10">
-                  Short bio describing their expertise and exact role within the operational standard of TrevaTech.
+                <h3 className="text-xl md:text-2xl font-[Manrope] text-white font-semibold mb-1 relative z-10">{member.name}</h3>
+                <p className="text-teal-400/80 mb-3 md:mb-5 text-[10px] md:text-sm font-medium uppercase tracking-wider relative z-10">{member.title}</p>
+                <p className="text-white/70 font-light text-[13px] md:text-[15px] leading-relaxed relative z-10 min-h-[4rem]">
+                  {member.bio}
                 </p>
-                <a href="#" className="text-white hover:text-teal-400 transition-colors text-xs md:text-sm font-semibold flex items-center gap-2 w-fit group/link relative z-10">
-                  LinkedIn Profile <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
-                </a>
               </div>
             </div>
           ))}
