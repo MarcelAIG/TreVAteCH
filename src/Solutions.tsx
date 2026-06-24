@@ -40,7 +40,7 @@ const TESTIMONIALS = [
   { quote: "The automated content creation saves us hundreds of hours a month while keeping engagement at all-time highs.", name: "Marcus Wright", title: "Founder, Alpha Capital", initials: "MW" }
 ];
 
-export default function Solutions() {
+export default function Solutions({ setCurrentPage }: { setCurrentPage: (page: string) => void }) {
   const [isVisible, setIsVisible] = useState(false);
   
   // Observers for different sections
@@ -508,7 +508,7 @@ export default function Solutions() {
               }
             `}</style>
             
-            <button className="cta-pulse-btn group/btn relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-10 py-4 md:px-16 md:py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer mx-auto">
+            <button onClick={() => { setCurrentPage('Contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="cta-pulse-btn group/btn relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-10 py-4 md:px-16 md:py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer mx-auto">
               <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[0%] transition-transform duration-1000 ease-in-out"></div>
               <span className="relative z-10 flex items-center justify-center gap-3 text-black font-[Manrope] font-extrabold text-lg md:text-2xl tracking-wider">
                 Book a Call

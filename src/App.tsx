@@ -678,7 +678,7 @@ export default function App() {
 
         {currentPage === 'Solutions' && (
           <div className="pointer-events-auto w-full relative z-20">
-            <Solutions />
+            <Solutions setCurrentPage={setCurrentPage} />
           </div>
         )}
 

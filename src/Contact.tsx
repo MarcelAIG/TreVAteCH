@@ -30,6 +30,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
   // Scroll observers
   const [refHero, isHeroVisible] = useIntersectionObserver({ threshold: 0.1 });
@@ -41,14 +42,39 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setIsSubmitting(true);
-    // Simulate sending
-    setTimeout(() => {
+    setSubmitStatus('idle');
+
+    const formData = new FormData(form);
+    formData.append("access_key", "b4286c45-1c45-43f0-9819-5c1438e14e01");
+    if (selectedService) {
+      formData.append("Service Interest", selectedService);
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        form.reset();
+        setSelectedService("");
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error(error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-      alert("Message sent successfully!");
-    }, 1500);
+    }
   };
 
   return (
@@ -81,6 +107,18 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
             
             <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 blur-[80px] rounded-full animate-pulse pointer-events-none" />
 
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400 font-[Manrope] text-center relative z-20">
+                Message sent successfully! We'll be in touch soon.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 font-[Manrope] text-center relative z-20">
+                Something went wrong. Please try again or contact us directly.
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}
@@ -88,6 +126,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
                   <label className="text-sm font-mono text-white/60 uppercase tracking-widest pl-1">Name</label>
                   <input 
                     type="text" 
+                    name="name"
                     required
                     placeholder="John Doe"
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none text-white font-[Manrope] placeholder:text-white/20 focus:border-teal-400/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(45,212,191,0.1)] transition-all duration-300"
@@ -98,6 +137,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
                   <label className="text-sm font-mono text-white/60 uppercase tracking-widest pl-1">Company</label>
                   <input 
                     type="text" 
+                    name="company"
                     required
                     placeholder="Your Company Ltd"
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none text-white font-[Manrope] placeholder:text-white/20 focus:border-teal-400/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(45,212,191,0.1)] transition-all duration-300"
@@ -111,6 +151,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
                   <label className="text-sm font-mono text-white/60 uppercase tracking-widest pl-1">Email <span className="text-teal-400">*</span></label>
                   <input 
                     type="email" 
+                    name="email"
                     required
                     placeholder="john@example.com"
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none text-white font-[Manrope] placeholder:text-white/20 focus:border-teal-400/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(45,212,191,0.1)] transition-all duration-300"
@@ -121,6 +162,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
                   <label className="text-sm font-mono text-white/60 uppercase tracking-widest pl-1">Phone <span className="text-white/30 lowercase tracking-normal">(optional)</span></label>
                   <input 
                     type="tel" 
+                    name="phone"
                     placeholder="+1 234 567 890"
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none text-white font-[Manrope] placeholder:text-white/20 focus:border-teal-400/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(45,212,191,0.1)] transition-all duration-300"
                   />
@@ -171,6 +213,7 @@ export default function Contact({ setCurrentPage }: { setCurrentPage: (page: str
               <div className="space-y-2">
                 <label className="text-sm font-mono text-white/60 uppercase tracking-widest pl-1">Message</label>
                 <textarea 
+                  name="message"
                   required
                   rows={4}
                   placeholder="How can we help your business grow?"
