@@ -715,14 +715,11 @@ export default function App() {
                 AI-powered growth systems designed for regulated environments. We build within the boundaries.
               </p>
               <div className="flex items-center gap-3 mt-auto">
-                <a href="#" className="group/social w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
+                <a href="https://www.linkedin.com/company/trevatech" target="_blank" rel="noopener noreferrer" className="group/social w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
                   <Linkedin size={16} className="md:w-5 md:h-5 transition-transform duration-500" />
                 </a>
-                <a href="#" className="group/social w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
+                <a href="https://www.instagram.com/treva.tech/" target="_blank" rel="noopener noreferrer" className="group/social w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
                   <Instagram size={16} className="md:w-5 md:h-5 transition-transform duration-500" />
-                </a>
-                <a href="#" className="group/social w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/[0.03] border border-white/[0.05] flex items-center justify-center text-white/50 hover:text-white hover:border-teal-400/60 hover:bg-teal-400/10 hover:shadow-[0_0_20px_rgba(35,178,159,0.3)] transition-all duration-500 hover:scale-[1.05]">
-                  <Facebook size={16} className="md:w-5 md:h-5 transition-transform duration-500" />
                 </a>
               </div>
             </div>
