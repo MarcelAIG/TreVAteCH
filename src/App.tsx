@@ -168,7 +168,7 @@ export default function App() {
     if (audioRef.current) {
       audioRef.current.muted = isMuted;
       if (!isMuted) {
-        audioRef.current.play().catch(() => {});
+        audioRef.current.play().catch(() => { });
       }
     }
   }, [isMuted]);
@@ -304,7 +304,7 @@ export default function App() {
       // Map scroll directly to the exact frame timeline (0 to len - 1)
       const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
       const targetFrame = progress * (len - 1);
-      
+
       // Initialize currentRenderFrame on first run
       if (currentRenderFrame === 0 && targetFrame > 0) {
         currentRenderFrame = targetFrame;
@@ -332,7 +332,7 @@ export default function App() {
           ctx.drawImage(frame, 0, 0, cvs.width, cvs.height);
         }
       }
-      
+
       rafId = requestAnimationFrame(renderLoop);
     };
 
@@ -346,12 +346,12 @@ export default function App() {
 
   const handleGlobalInteraction = () => {
     if (audioRef.current && audioRef.current.paused && !isMuted) {
-      audioRef.current.play().catch(() => {});
+      audioRef.current.play().catch(() => { });
     }
   };
 
   return (
-    <div 
+    <div
       className={`min-h-screen bg-black text-white font-[Manrope] overflow-x-hidden relative transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}
       onPointerDown={handleGlobalInteraction}
       onKeyDown={handleGlobalInteraction}
@@ -386,9 +386,9 @@ export default function App() {
         <div className="liquid-glass flex items-center justify-center rounded px-6 py-2.5">
           <div className="flex items-center gap-5 pointer-events-auto">
             {NAV_LINKS.map((link) => (
-              <a 
-                key={link} 
-                href="#" 
+              <a
+                key={link}
+                href="#"
                 onClick={(e) => { e.preventDefault(); setCurrentPage(link); }}
                 className={`text-sm font-[Manrope] transition-colors duration-200 ${currentPage === link ? 'text-teal-400 font-medium' : 'font-light text-white/70 hover:text-white'}`}
               >
@@ -401,11 +401,11 @@ export default function App() {
 
       {/* Mobile Nav Overlay */}
       <div className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-500 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="flex flex-col items-center gap-8 pointer-events-auto mt-10">
+        <div className="flex flex-col items-center gap-8 mt-10">
           {NAV_LINKS.map((link) => (
-            <a 
-              key={link} 
-              href="#" 
+            <a
+              key={link}
+              href="#"
               onClick={(e) => { e.preventDefault(); setCurrentPage(link); setIsMobileMenuOpen(false); }}
               className={`text-2xl font-[Manrope] transition-colors duration-200 ${currentPage === link ? 'text-teal-400 font-medium scale-110' : 'font-light text-white/70 hover:text-white active:scale-95'}`}
             >
@@ -420,8 +420,8 @@ export default function App() {
         <div className="relative flex items-center justify-center group">
           {/* Smooth modern green breathing aura */}
           <div className="absolute -inset-1 bg-teal-400/40 rounded-full blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
-          
-          <button 
+
+          <button
             onClick={() => {
               setCurrentPage('Contact');
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -433,7 +433,7 @@ export default function App() {
           </button>
         </div>
 
-        <button 
+        <button
           onClick={() => setIsMuted(!isMuted)}
           className="p-1.5 md:p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
           aria-label={isMuted ? "Unmute music" : "Mute music"}
@@ -442,7 +442,7 @@ export default function App() {
         </button>
 
         {/* Mobile Menu Toggle */}
-        <button 
+        <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="md:hidden p-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-md text-white/80 hover:text-white shadow-[0_0_10px_rgba(255,255,255,0.05)] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -458,31 +458,31 @@ export default function App() {
           {/* Section 0: Main Hero Component */}
           <div className="min-h-[100vh] flex flex-col justify-center items-start px-[8%] w-full relative pt-[15vh]">
 
-          {/* Logo positioning - Top left near navbar */}
-          <div className="absolute top-[10px] left-[8%] z-50 pointer-events-auto flex items-center">
-            <img src={logoImg} alt="Treva Tech" className="h-14 md:h-[60px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] object-contain transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)]" />
-          </div>
+            {/* Logo positioning - Top left near navbar */}
+            <div className="absolute top-[10px] left-[8%] z-50 pointer-events-auto flex items-center">
+              <img src={logoImg} alt="Treva Tech" className="h-14 md:h-[60px] w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] object-contain transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)]" />
+            </div>
 
-          {/* Main Hero Background Video */}
-          <div
-            ref={heroVideoRef}
-            className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none will-change-transform"
-            style={{
-              maskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)'
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent z-10 w-1/2" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
-            <video
-              ref={heroVideoElementRef}
-              autoPlay loop muted playsInline
-              className="w-full h-full object-cover object-right opacity-80 mix-blend-screen"
-            />
-          </div>
+            {/* Main Hero Background Video */}
+            <div
+              ref={heroVideoRef}
+              className="absolute top-0 left-0 w-full h-[120vh] z-0 pointer-events-none will-change-transform"
+              style={{
+                maskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, transparent 90%)'
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent z-10 w-1/2" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-80" />
+              <video
+                ref={heroVideoElementRef}
+                autoPlay loop muted playsInline
+                className="w-full h-full object-cover object-right opacity-80 mix-blend-screen"
+              />
+            </div>
 
-          <div className="pointer-events-auto w-full z-10 relative">
-            <style>{`
+            <div className="pointer-events-auto w-full z-10 relative">
+              <style>{`
               .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.5); }
               .swiper-pagination-bullet-active { background: #2dd4bf; }
               .hero-swiper { padding-bottom: 3rem !important; }
@@ -491,119 +491,119 @@ export default function App() {
                 bottom: 0 !important;
               }
             `}</style>
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={50}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: false }}
-              observer={true}
-              observeParents={true}
-              grabCursor={true}
-              loop={true}
-              className="hero-swiper w-full max-w-5xl !mx-0"
-            >
-              {HERO_SLIDES.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <div className="max-w-4xl text-left flex flex-col items-start">
-                    <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">{slide.subtitle}</p>
-                    <h1 
-                      className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.9] !tracking-tight mb-6 drop-shadow-lg"
-                      dangerouslySetInnerHTML={{ __html: slide.title }}
-                    />
-                    <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg mb-10">{slide.description}</p>
-                    
-                    <button 
-                      onClick={() => handleSlideAction(slide.targetPage, slide.hash)}
-                      className="group relative text-teal-400 text-lg font-[Manrope] font-semibold flex items-center gap-2 active:scale-[0.97] transition-all duration-500 hover:text-teal-300 drop-shadow-[0_0_8px_rgba(45,212,191,0.4)] hover:drop-shadow-[0_0_20px_rgba(45,212,191,0.8)]"
-                    >
-                      <span>{slide.ctaText.replace('→', '')}</span>
-                      <span className="group-hover:translate-x-2 transition-transform duration-500 text-teal-400 drop-shadow-[0_0_12px_rgba(45,212,191,0.6)]">→</span>
-                    </button>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={50}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: false }}
+                observer={true}
+                observeParents={true}
+                grabCursor={true}
+                loop={true}
+                className="hero-swiper w-full max-w-5xl !mx-0"
+              >
+                {HERO_SLIDES.map((slide, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="max-w-4xl text-left flex flex-col items-start">
+                      <p className="font-mono text-teal-400 mb-4 tracking-widest text-xs uppercase drop-shadow-md">{slide.subtitle}</p>
+                      <h1
+                        className="hero-title !text-left !text-[60px] md:!text-[85px] !leading-[0.9] !tracking-tight mb-6 drop-shadow-lg"
+                        dangerouslySetInnerHTML={{ __html: slide.title }}
+                      />
+                      <p className="font-[Manrope] text-lg font-light text-white/90 drop-shadow-md max-w-lg mb-10">{slide.description}</p>
 
-        {/* Section 1: Center Right */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase drop-shadow-md">02 // The Advantage</p>
-            <h1 className="hero-title !text-center md:!text-right !text-[36px] md:!text-[70px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6 drop-shadow-lg">Built by Specialists,<br />Not Generalists</h1>
-            <p className="font-[Manrope] text-sm md:text-xl font-light text-white/90 drop-shadow-md">Our teams have run broker operations and built growth systems from the inside. We speak both languages: lot volumes and retention funnels, lead funnels and conversion data.</p>
+                      <button
+                        onClick={() => handleSlideAction(slide.targetPage, slide.hash)}
+                        className="group relative text-teal-400 text-lg font-[Manrope] font-semibold flex items-center gap-2 active:scale-[0.97] transition-all duration-500 hover:text-teal-300 drop-shadow-[0_0_8px_rgba(45,212,191,0.4)] hover:drop-shadow-[0_0_20px_rgba(45,212,191,0.8)]"
+                      >
+                        <span>{slide.ctaText.replace('→', '')}</span>
+                        <span className="group-hover:translate-x-2 transition-transform duration-500 text-teal-400 drop-shadow-[0_0_12px_rgba(45,212,191,0.6)]">→</span>
+                      </button>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
-        </div>
 
-        {/* Section 2: Center Left */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">03 // THE PROCESS</p>
-            <h1 className="hero-title !text-center md:!text-left !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Outcome<br />Obsessed</h1>
-            <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against real outcomes: qualified leads, conversions, and revenue. What does not perform gets rebuilt or removed.</p>
+          {/* Section 1: Center Right */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase drop-shadow-md">02 // The Advantage</p>
+              <h1 className="hero-title !text-center md:!text-right !text-[36px] md:!text-[70px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6 drop-shadow-lg">Built by Specialists,<br />Not Generalists</h1>
+              <p className="font-[Manrope] text-sm md:text-xl font-light text-white/90 drop-shadow-md">Our teams have run broker operations and built growth systems from the inside. We speak both languages: lot volumes and retention funnels, lead funnels and conversion data.</p>
+            </div>
           </div>
-        </div>
 
-        {/* Section 3: Bottom Right */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">04 // The Boundary</p>
-            <h1 className="hero-title !text-center md:!text-right !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Compliance<br />Built In</h1>
-            <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
+          {/* Section 2: Center Left */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">03 // THE PROCESS</p>
+              <h1 className="hero-title !text-center md:!text-left !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Outcome<br />Obsessed</h1>
+              <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">No vanity metrics. Every system is tracked against real outcomes: qualified leads, conversions, and revenue. What does not perform gets rebuilt or removed.</p>
+            </div>
           </div>
-        </div>
 
-        {/* Section 4: Top Left */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">05 // THE ENGINE</p>
-            <h1 className="hero-title !text-center md:!text-left !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">AI Growth<br />Systems</h1>
-            <ul className="font-[Manrope] text-sm md:text-xl font-light text-white/80 space-y-2 md:space-y-3 w-full text-left">
-              <li>• AI lead gen & automated outreach</li>
-              <li>• AI receptionist & WhatsApp</li>
-              <li>• Automated social media mgmt</li>
-            </ul>
+          {/* Section 3: Bottom Right */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">04 // The Boundary</p>
+              <h1 className="hero-title !text-center md:!text-right !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Compliance<br />Built In</h1>
+              <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">DFSA, FCA, CySEC, SC Malaysia — we build within the boundaries, not around them. Every campaign, asset, and system is designed for regulated environments.</p>
+            </div>
           </div>
-        </div>
 
-        {/* Section 5: Center Right */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">06 // THE STRATEGY</p>
-            <h1 className="hero-title !text-center md:!text-right !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Performance<br />Marketing</h1>
-            <ul className="font-[Manrope] text-sm md:text-xl font-light text-white/80 list-none space-y-2 md:space-y-3 w-full text-left md:text-right">
-              <li><span className="hidden md:inline">Meta Ads &bull;</span><span className="md:hidden">&bull; Meta Ads</span></li>
-              <li><span className="hidden md:inline">Google Search & Display Ads &bull;</span><span className="md:hidden">&bull; Google Search & Display</span></li>
-              <li><span className="hidden md:inline">SEO & GEO Optimization &bull;</span><span className="md:hidden">&bull; SEO & GEO Optimization</span></li>
-            </ul>
+          {/* Section 4: Top Left */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">05 // THE ENGINE</p>
+              <h1 className="hero-title !text-center md:!text-left !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">AI Growth<br />Systems</h1>
+              <ul className="font-[Manrope] text-sm md:text-xl font-light text-white/80 space-y-2 md:space-y-3 w-full text-left">
+                <li>• AI lead gen & automated outreach</li>
+                <li>• AI receptionist & WhatsApp</li>
+                <li>• Automated social media mgmt</li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        {/* Section 6: Center -> Left */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">07 // THE INFRASTRUCTURE</p>
-            <h1 className="hero-title !text-center md:!text-left !text-[34px] md:!text-[70px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Operations Built for<br />Regulated Brokers</h1>
-            <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">Platform administration, dealing desk operations, and risk management for brokers and prop firms, built within regulatory and platform boundaries from day one.</p>
+          {/* Section 5: Center Right */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">06 // THE STRATEGY</p>
+              <h1 className="hero-title !text-center md:!text-right !text-[40px] md:!text-[85px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Performance<br />Marketing</h1>
+              <ul className="font-[Manrope] text-sm md:text-xl font-light text-white/80 list-none space-y-2 md:space-y-3 w-full text-left md:text-right">
+                <li><span className="hidden md:inline">Meta Ads &bull;</span><span className="md:hidden">&bull; Meta Ads</span></li>
+                <li><span className="hidden md:inline">Google Search & Display Ads &bull;</span><span className="md:hidden">&bull; Google Search & Display</span></li>
+                <li><span className="hidden md:inline">SEO & GEO Optimization &bull;</span><span className="md:hidden">&bull; SEO & GEO Optimization</span></li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        {/* Section 7: Center -> Right */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">08 // THE CONVERGENCE</p>
-            <h1 className="hero-title !text-center md:!text-right !text-[32px] md:!text-[65px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">From the First Conversation<br className="hidden md:block"/>to the Last Trade</h1>
-            <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">TrevaTech builds the systems that move businesses and brokers forward, growth on one side, infrastructure on the other.</p>
+          {/* Section 6: Center -> Left */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-start">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">07 // THE INFRASTRUCTURE</p>
+              <h1 className="hero-title !text-center md:!text-left !text-[34px] md:!text-[70px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">Operations Built for<br />Regulated Brokers</h1>
+              <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">Platform administration, dealing desk operations, and risk management for brokers and prop firms, built within regulatory and platform boundaries from day one.</p>
+            </div>
           </div>
-        </div>
 
-        {/* Section 8: Testimonials -> Left */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center relative overflow-hidden items-center md:items-start">
-            <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">09 // What Our Partners Say</p>
-            
-            <style>{`
+          {/* Section 7: Center -> Right */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-end px-[5%] md:pr-[8%] md:pl-0 w-full text-center md:text-right">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center md:items-end">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">08 // THE CONVERGENCE</p>
+              <h1 className="hero-title !text-center md:!text-right !text-[32px] md:!text-[65px] !leading-[1.1] md:!leading-[0.85] !tracking-tight mb-4 md:mb-6">From the First Conversation<br className="hidden md:block" />to the Last Trade</h1>
+              <p className="font-[Manrope] text-sm md:text-xl font-light text-white/80">TrevaTech builds the systems that move businesses and brokers forward, growth on one side, infrastructure on the other.</p>
+            </div>
+          </div>
+
+          {/* Section 8: Testimonials -> Left */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center md:items-start px-[5%] md:pl-[8%] md:pr-0 w-full text-center md:text-left">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-6 md:p-14 rounded-[2rem] w-full max-w-[340px] md:max-w-none md:w-[700px] min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center relative overflow-hidden items-center md:items-start">
+              <p className="font-mono text-teal-400 mb-2 md:mb-4 tracking-widest text-[10px] md:text-xs uppercase">09 // What Our Partners Say</p>
+
+              <style>{`
               .testimonial-swiper { padding-bottom: 2rem !important; }
               @media (min-width: 768px) { .testimonial-swiper { padding-bottom: 3rem !important; } }
               .testimonial-swiper .swiper-pagination-bullet { background: rgba(255, 255, 255, 0.3); }
@@ -612,43 +612,43 @@ export default function App() {
               @media (min-width: 768px) { .testimonial-swiper .swiper-pagination { text-align: left !important; } }
             `}</style>
 
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={50}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 6000, disableOnInteraction: false }}
-              grabCursor={true}
-              loop={true}
-              className="testimonial-swiper w-full !mx-0"
-            >
-              {TESTIMONIALS.map((t, idx) => (
-                <SwiperSlide key={idx}>
-                  <div className="flex flex-col h-full text-center md:text-left items-center md:items-start">
-                    <svg className="w-8 h-8 md:w-10 md:h-10 text-teal-400/50 mb-4 md:mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
-                    <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/90 italic leading-relaxed mb-6 md:mb-8">"{t.quote}"</p>
-                    <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-auto">
-                      <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-black font-bold text-sm md:text-xl shadow-[0_0_15px_rgba(35,178,159,0.5)]">{t.initials}</div>
-                      <div className="text-center md:text-left">
-                        <p className="text-white font-medium text-sm md:text-lg">{t.name}</p>
-                        <p className="text-teal-400/80 text-xs md:text-sm tracking-wide">{t.title}</p>
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={50}
+                slidesPerView={1}
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 6000, disableOnInteraction: false }}
+                grabCursor={true}
+                loop={true}
+                className="testimonial-swiper w-full !mx-0"
+              >
+                {TESTIMONIALS.map((t, idx) => (
+                  <SwiperSlide key={idx}>
+                    <div className="flex flex-col h-full text-center md:text-left items-center md:items-start">
+                      <svg className="w-8 h-8 md:w-10 md:h-10 text-teal-400/50 mb-4 md:mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                      <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/90 italic leading-relaxed mb-6 md:mb-8">"{t.quote}"</p>
+                      <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-auto">
+                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-black font-bold text-sm md:text-xl shadow-[0_0_15px_rgba(35,178,159,0.5)]">{t.initials}</div>
+                        <div className="text-center md:text-left">
+                          <p className="text-white font-medium text-sm md:text-lg">{t.name}</p>
+                          <p className="text-teal-400/80 text-xs md:text-sm tracking-wide">{t.title}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
-        </div>
 
-        {/* Section 10: CTA -> Center */}
-        <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center w-full text-center px-[5%] md:px-[8%]">
-          <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-16 rounded-[2rem] w-full max-w-[340px] md:max-w-4xl min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center relative overflow-hidden">
-            <p className="font-mono text-teal-400 mb-4 md:mb-6 tracking-widest text-[10px] md:text-sm uppercase font-semibold">10 // Ready to scale?</p>
-            <h1 className="hero-title !text-center !text-[32px] md:!text-[75px] !leading-[1.1] md:!leading-[0.9] !tracking-tight mb-4 md:mb-8">Ready to Build Something<br className="hidden md:block"/>That Works?</h1>
-            <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed">Whether you're scaling outreach or running a trading desk, let's talk about what TrevaTech can build for you.</p>
-            
-            <style>{`
+          {/* Section 10: CTA -> Center */}
+          <div className="py-[10vh] md:py-[15vh] flex flex-col justify-center items-center w-full text-center px-[5%] md:px-[8%]">
+            <div className="pointer-events-auto backdrop-blur-md bg-black/80 border border-white/10 p-8 md:p-16 rounded-[2rem] w-full max-w-[340px] md:max-w-4xl min-h-[auto] md:min-h-[450px] shadow-2xl transition-all duration-500 hover:bg-black/90 hover:border-teal-400/30 hover:shadow-[inset_0_0_100px_rgba(45,212,191,0.15),0_0_40px_rgba(45,212,191,0.2)] flex flex-col justify-center items-center relative overflow-hidden">
+              <p className="font-mono text-teal-400 mb-4 md:mb-6 tracking-widest text-[10px] md:text-sm uppercase font-semibold">10 // Ready to scale?</p>
+              <h1 className="hero-title !text-center !text-[32px] md:!text-[75px] !leading-[1.1] md:!leading-[0.9] !tracking-tight mb-4 md:mb-8">Ready to Build Something<br className="hidden md:block" />That Works?</h1>
+              <p className="font-[Manrope] text-sm md:text-2xl font-light text-white/80 max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed">Whether you're scaling outreach or running a trading desk, let's talk about what TrevaTech can build for you.</p>
+
+              <style>{`
               @keyframes ultra-pulse {
                 0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(45, 212, 191, 0.3); }
                 50% { transform: scale(1.05); box-shadow: 0 0 70px rgba(45, 212, 191, 0.7); }
@@ -657,23 +657,23 @@ export default function App() {
                 animation: ultra-pulse 3s ease-in-out infinite;
               }
             `}</style>
-            
-            <button 
-              onClick={() => {
-                setCurrentPage('Contact');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="ultra-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-10 py-4 md:px-16 md:py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer"
-            >
-              {/* Shimmer sweep effect */}
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
-              <span className="relative z-10 text-black font-[Manrope] font-bold text-lg md:text-2xl tracking-wide flex items-center gap-3 md:gap-4">
-                Book a Call 
-                <span className="group-hover:translate-x-2 transition-transform duration-300 text-xl md:text-3xl">→</span>
-              </span>
-            </button>
+
+              <button
+                onClick={() => {
+                  setCurrentPage('Contact');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="ultra-pulse-btn group relative overflow-hidden rounded-full bg-teal-400 border-none outline-none px-10 py-4 md:px-16 md:py-6 transition-all duration-300 hover:brightness-110 active:scale-95 cursor-pointer"
+              >
+                {/* Shimmer sweep effect */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
+                <span className="relative z-10 text-black font-[Manrope] font-bold text-lg md:text-2xl tracking-wide flex items-center gap-3 md:gap-4">
+                  Book a Call
+                  <span className="group-hover:translate-x-2 transition-transform duration-300 text-xl md:text-3xl">→</span>
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
         </div>
 
         {currentPage === 'Solutions' && (
@@ -703,13 +703,13 @@ export default function App() {
         {/* Footer Section */}
         <div className="w-full bg-black/95 backdrop-blur-xl border-t border-white/10 pt-10 pb-6 md:pt-16 md:pb-8 px-[5%] md:px-[8%] relative z-20 pointer-events-auto mt-10 md:mt-20">
           <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12 text-left">
-            
+
             {/* Column 1: Brand & Socials */}
             <div className="flex flex-col group p-0 md:p-6 md:-ml-6 rounded-[2rem] hover:bg-white/[0.03] transition-all duration-500 border border-transparent hover:border-white/[0.05] cursor-default mb-4 md:mb-0">
-              <img 
-                src={logoImg} 
-                alt="Treva Tech" 
-                className="h-10 md:h-20 w-auto mb-4 md:mb-6 object-contain self-start opacity-100 drop-shadow-md transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-[1.02] origin-left" 
+              <img
+                src={logoImg}
+                alt="Treva Tech"
+                className="h-10 md:h-20 w-auto mb-4 md:mb-6 object-contain self-start opacity-100 drop-shadow-md transition-all duration-500 group-hover:drop-shadow-[0_0_15px_rgba(35,178,159,0.5)] group-hover:scale-[1.02] origin-left"
               />
               <p className="font-[Manrope] text-xs md:text-sm text-white/50 leading-relaxed mb-6 md:mb-8 max-w-xs group-hover:text-white/70 transition-colors duration-500">
                 AI-powered growth systems designed for regulated environments. We build within the boundaries.
@@ -788,7 +788,7 @@ export default function App() {
           </div>
 
           <div className="max-w-7xl mx-auto w-full h-[1px] bg-white/10 mt-8 md:mt-12 mb-6 md:mb-8" />
-          
+
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 text-[10px] md:text-xs font-[Manrope] text-white/40">
             <p className="text-center md:text-left">&copy; {new Date().getFullYear()} Treva Tech. All rights reserved.</p>
             <div className="flex gap-4 md:gap-6">
@@ -803,7 +803,7 @@ export default function App() {
       {/* Global Loading Overlay */}
       <div className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-1000 ${framesReady ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
-          
+
           {/* Tech/Intelligence Icon Animation */}
           <div className="relative mb-12 flex items-center justify-center">
             <div className="absolute inset-0 bg-teal-500/20 blur-xl rounded-full animate-pulse"></div>
